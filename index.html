@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Surprise ✨</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<script src="./first.js"></script>
+<body>
+
+<div class="stars"></div>
+<div class="floating-hearts"></div>
+
+<audio id="music" loop>
+<source src="music/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="eyebrow">
+✦ A LITTLE SURPRISE FOR YOU ✦
+</div>
+
+<h1>
+    Happy Birthday,
+    <br>
+    <span style="color:#ff78b5;">Sonam ❤️</span>
+</h1>
+
+<p class="subtitle" id="typing"></p>
+
+<button class="primary-btn" onclick="openGift()">
+Open Your Surprise 🎁
+</button>
+
+</div>
+
+</section>
+
+
+<section id="giftSection" class="gift-overlay">
+
+<div class="gift-wrapper">
+
+<div class="gift" onclick="unwrap()">
+
+<div class="gift-lid"></div>
+
+<div class="gift-box"></div>
+
+<div class="gift-ribbon-v"></div>
+
+<div class="gift-ribbon-h"></div>
+
+</div>
+
+<p>Tap the gift 🎁</p>
+
+</div>
+
+</section>
+
+
+<div id="continue" class="continue">
+
+<a href="memories.html">
+Enter The Memories →
+</a>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
