@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+	<html>
+		<head lang="en">
+                        <link rel="alternate" type="application/rss+xml" href="https://tvtropes.org/pmwiki/rss-feed.php?filter=newest_pages" />
+            <link rel="alternate" type="application/rss+xml" href="https://tvtropes.org/pmwiki/rss-feed.php?filter=most_popular" />
+            <link rel="alternate" type="application/rss+xml" href="https://tvtropes.org/pmwiki/rss-feed.php?filter=updated_content" />
+
+            <!-- Google tag (gtag.js) -->
+            <script>window.gtl = null;</script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-XPPLXMRF6Z" onload="window.gtl = true;" onerror="window.gtl = false;"></script>
+            <script>
+                var pbjs = pbjs || {};
+
+                // Used for Video players on Tropes
+                var tropes_videos_commands = tropes_videos_commands || [];
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-XPPLXMRF6Z');
+
+                window.googletag = window.googletag || {cmd: []};
+            </script>
+
+                        <script>
+                function object(objectId) {
+                    if (document.getElementById && document.getElementById(objectId)) {
+                        return document.getElementById(objectId);
+                    } else if (document.all && document.all(objectId)) {
+                        return document.all(objectId);
+                    } else if (document.layers && document.layers[objectId]) {
+                        return document.layers[objectId];
+                    } else {
+                        return false;
+                    }
+                }
+
+                // JAVASCRIPT COOKIES CODE: for getting and setting user viewing preferences
+                var cookies = {
+                    create: function (name, value, days2expire, path) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + (days2expire * 24 * 60 * 60 * 1000));
+                        var expires = date.toUTCString();
+                        document.cookie = name + '=' + value + ';' + 'expires=' + expires + ';domain=.tvtropes.org;' + 'path=' + path + ';';
+                    },
+										createWithExpire: function(name, value, expires, path) {
+												document.cookie = name + '=' + value + ';' + 'expires=' + expires + ';domain=.tvtropes.org;' + 'path=' + path + ';';
+										},
+                    read: function (name) {
+                        var cookie_value = "",
+                            current_cookie = "",
+                            name_expr = name + "=",
+                            all_cookies = document.cookie.split(';'),
+                            n = all_cookies.length;
+
+                        for (var i = 0; i < n; i++) {
+                            current_cookie = all_cookies[i].trim();
+                            if (current_cookie.indexOf(name_expr) === 0) {
+                                cookie_value = current_cookie.substring(name_expr.length, current_cookie.length);
+                                break;
+                            }
+                        }
+                        return cookie_value;
+                    },
+                    update: function (name, val) {
+                        this.create(name, val, 300, "/");
+                    },
+                    remove: function (name) {
+                        //delete cookie with and without domain setting
+                        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=.tvtropes.org; path=/;";
+                        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
+                    }
+                };
+
+                // show app promo banner
+                function show_promo(){
+                    var logged_in = false;
+
+                    // Check for the different possible cookies set by closeBanner()
+                    var banner_cookie_logged_in = cookies.read('app-announcement-banner-logged-in');
+                    var banner_cookie_guest = cookies.read('app-announcement-banner-guest');
+
+                    if(logged_in){
+                        document.body.classList.remove('app-promo');
+                        if(banner_cookie_logged_in){
+                            document.body.classList.add('footer-app-promo');
+                        }else{
+                            document.body.classList.remove('footer-app-promo');
+                        }
+                    }else{
+                        document.body.classList.remove('footer-app-promo');
+                        if(banner_cookie_guest){
+                            document.body.classList.remove('app-promo');
+                        }else{
+                            document.body.classList.add('app-promo');
+                        }
+                    }
+                }
+
+                function updateUserPrefs() {
+                    //GENERAL: detect and set browser, if not cookied (will be treated like a user-preference and added to the #user-pref element)
+                    if( !cookies.read('user-browser') ){
+                        var broswer = '';
+
+                        if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ){
+                            browser = 'iOS';
+                        } else if (/Opera[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+                            browser = 'opera';
+                        } else if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+                            browser = 'MSIE';
+                        } else if (/Navigator[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+                            browser = 'netscape';
+                        } else if (/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+                            browser = 'chrome';
+                        } else if (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+                            browser = 'safari';
+                            /Version[\/\s](\d+\.\d+)/.test(navigator.userAgent);
+                            browserVersion = new Number(RegExp.$1);
+                        } else if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
+                            browser = 'firefox';
+                        } else {
+                            browser = 'internet_explorer';
+                        }
+                        cookies.create('user-browser',browser,1,'/');
+                        document.getElementById('user-prefs').classList.add('browser-' + browser);
+                    } else {
+                        document.getElementById('user-prefs').classList.add('browser-' + cookies.read('user-browser'));
+                    }
+
+                    //update user preference settings based on their database settings
+                    var logged_in = false;
+                    
+                    if(logged_in == false) {
+                        if(cookies.read('wide-load') !== '') document.getElementById('user-prefs').classList.add('wide-load');
+                        if(cookies.read('night-vision') !== '') document.getElementById('user-prefs').classList.add('night-vision');
+                        if(cookies.read('sticky-header') !== '') document.getElementById('user-prefs').classList.add('sticky-header');
+                        if(cookies.read('show-spoilers') !== '') document.getElementById('user-prefs').classList.add('show-spoilers');
+                        if(cookies.read('highlight-links') !== '') document.getElementById('user-prefs').classList.add('highlight-links');
+                    } else {
+                        if (false) document.getElementById('user-prefs').classList.add('wide-load');
+                        if (false) document.getElementById('user-prefs').classList.add('mono-font');
+                        if (false) document.getElementById('user-prefs').classList.add('night-vision');
+                        if (false) document.getElementById('user-prefs').classList.add('sticky-header');
+                        if (false) document.getElementById('user-prefs').classList.add('show-spoilers');
+                        if (false) document.getElementById('user-prefs').classList.add('tvtropes-editor-on');
+                        if (false) document.getElementById('user-prefs').classList.add('folders-open');
+                        if (false) document.getElementById('user-prefs').classList.add('lefthand-sidebar');
+                        if (false) document.getElementById('user-prefs').classList.add('highlight-links');
+                        if (false) document.getElementById('user-prefs').classList.add('forum-gingerbread');
+                        if (false) document.getElementById('user-prefs').classList.add('hide-likes-articles');
+                        if (false) document.getElementById('user-prefs').classList.add('hide-likes-posts');
+                        if (false) document.getElementById('user-prefs').classList.add('shared-avatars');
+                        if (false) document.getElementById('user-prefs').classList.add('stop-auto-play-video');
+                        if (false) document.getElementById('user-prefs').classList.add('hide-laconic-hover');
+                        if (false) document.getElementById('user-prefs').classList.add('show-namespaces');
+                    }
+                        
+                    //desktop view on mobile
+                    if (cookies.read('desktop-on-mobile') !== ''){
+                        document.getElementById('user-prefs').classList.add('desktop-on-mobile');
+
+                        var viewport = document.querySelector("meta[name=viewport]");
+                        viewport.setAttribute('content', 'width=1000');
+                    }
+
+                    if (logged_in) {
+                        if (1) cookies.remove('stop-auto-play-video');
+                        else if (0) cookies.create('stop-auto-play-video','true',300,'/');
+                    }
+
+                    //updates element
+                    if(cookies.read('stop-auto-play-video') !== '') document.getElementById('user-prefs').classList.add('stop-auto-play-video');
+                }
+
+                function updateDesktopPrefs() {
+                    var logged_in = false;
+
+                    if(logged_in == false) {
+                        if(cookies.read('wide-load') !== '') document.getElementById('sidebar-toggle-wideload').classList.add('active');
+                        if(cookies.read('night-vision') !== '') document.getElementById('sidebar-toggle-nightvision').classList.add('active');
+                        if(cookies.read('sticky-header') !== '') document.getElementById('sidebar-toggle-stickyheader').classList.add('active');
+                        if(cookies.read('show-spoilers') !== '') document.getElementById('sidebar-toggle-showspoilers').classList.add('active');
+                    } else {
+                        if (false) document.getElementById('sidebar-toggle-wideload').classList.add('active');
+                        if (false) document.getElementById('sidebar-toggle-nightvision').classList.add('active');
+                        if (false) document.getElementById('sidebar-toggle-stickyheader').classList.add('active');
+                        if (false) document.getElementById('sidebar-toggle-showspoilers').classList.add('active');
+                    }
+                }
+
+                function updateMobilePrefs() {
+                    var logged_in = false;
+
+                    if(logged_in == false) {
+                        if(cookies.read('highlight-links') !== '') document.getElementById('mobile-toggle-highlightlinks').classList.add('active');
+                        if(cookies.read('night-vision') !== '') document.getElementById('mobile-toggle-nightvision').classList.add('active');
+                        if(cookies.read('sticky-header') !== '') document.getElementById('mobile-toggle-stickyheader').classList.add('active');
+                        if(cookies.read('show-spoilers') !== '') document.getElementById('mobile-toggle-showspoilers').classList.add('active'); 
+                    } else {
+                        if (false) document.getElementById('mobile-toggle-showspoilers').classList.add('active');
+                        if (false) document.getElementById('mobile-toggle-nightvision').classList.add('active');
+                        if (false) document.getElementById('mobile-toggle-stickyheader').classList.add('active');
+                        if (false) document.getElementById('mobile-toggle-highlightlinks').classList.add('active');
+                    }
+                }
+
+                function is_mobile() {
+	                if(document.body.clientWidth && document.body.clientWidth<=768) return true;
+	                else return false;
+                }
+
+                function sendToSiteSearch(obj, q) {
+
+                    window.location.href = "/pmwiki/search_result.php#gsc.tab=0&gsc.q="+q+"&gsc.sort=";
+                    return false;
+                }
+
+            </script>
+			
+						<script type="text/javascript">
+                var ad_block_detected = cookies.read('ad_block_detected') ? true : false;
+
+                var site_bc_settings = {
+                    "adx"               : "yes",
+                    "groupname"         : "WesternAnimation",
+                    "has_folders"       : "yes",
+                    "user_type"         : "guest",
+                    "site_name"         : "tvtropes",
+                    "ad_block_detected" : ad_block_detected,
+                };
+
+                if(ad_block_detected) gtag('event', 'adblock', {'event_label': 'whitelist'});
+			</script>
+
+            
+                        <script>
+                window.BCLighthouseTag = window.BCLighthouseTag || {};
+window.BCLighthouseTag.cmd = window.BCLighthouseTag.cmd || [];
+
+BCLighthouseTag.cmd.push(function() {
+    if (site_bc_settings.groupname != "") {
+        BCLighthouseTag.setTargeting("groupname", site_bc_settings.groupname);
+    }
+    BCLighthouseTag.setTargeting("adx",               site_bc_settings.adx);
+    BCLighthouseTag.setTargeting("website",           site_bc_settings.site_name);
+    BCLighthouseTag.setTargeting("user_type",         site_bc_settings.user_type);
+    BCLighthouseTag.setTargeting("has_folders",       site_bc_settings.has_folders);
+    BCLighthouseTag.setTargeting("ad_block_detected", site_bc_settings.ad_block_detected);
+});
+            </script>
+
+                        <script type="text/javascript">
+                var tvtropes_config = {
+                    asteri_stream_enabled : "1",
+                    is_logged_in         : "",
+                    live_server          : "1",
+                    handle               : "",
+                    email_popup          : "0",
+                    troper_email         : "",
+                    get_asteri_stream     : "",
+                    revnum               : "837eba629aae42d6ced50e00a6cd91a1c3f1621c",
+                    img_domain           : "https://static.tvtropes.org",
+                    adblock              : "1",
+                    adblock_url          : "propermessage.io",
+                    universal_page_type  : "Article",
+                    pause_editing        : "0",
+                    pause_editing_msg    : "",
+                    pause_site_changes   : "0",
+                    assets_domain        : "https://assets.tvtropes.org",
+                    ranking              : 0,
+                };
+
+                // Video Ad Configuration (for IMA SDK) - only non-logged-in users see video ads
+                // BigCrunch builds the instream VAST URL per request from this ad unit code (defaults in the dashboard config).
+                var tvtropes_video_ad_config = {
+                    instream_ad_unit_code: 'tvtropes_instream_ctp'
+                };
+
+                // This will track the total number of ads inserted over time
+                var globalAdInsertionCount = 0;
+
+                // Check to see if this page is isolated, if so, run BCLighthouseTag.disableGoogleAdManager();
+                if(window.site_bc_settings.adx == "no"){
+                    console.log("disabling google");
+
+                    BCLighthouseTag.cmd.push(() => {
+                        BCLighthouseTag.disableGoogleAdManager();
+                    });
+                }
+
+                            </script>
+
+            <!-- CMP -->
+            <link rel="preload" as="fetch" href="https://cdn.bigcrunch.com/cmp/config/34a5ddec-697b-424e-81d2-e6bb46a1b83e.json" crossorigin="anonymous">
+            <script async src="https://dist.bigcrunch.com/cmp/cmp.js" data-property-id="34a5ddec-697b-424e-81d2-e6bb46a1b83e" crossorigin="anonymous" fetchpriority="high"></script>
+
+            <!-- Core -->
+            <link rel="preload" as="fetch" href="https://cdn.bigcrunch.com/config/34a5ddec-697b-424e-81d2-e6bb46a1b83e.json" crossorigin="anonymous">
+            <link rel="preload" as="script" href="https://cdn.bigcrunch.com/prebid/34a5ddec-697b-424e-81d2-e6bb46a1b83e.js" crossorigin="anonymous">
+            <script>window.bcl = null;</script>
+            <script async src="https://dist.bigcrunch.com/lighthouse/main.js" id="bigcrunchtag" data-property-id="34a5ddec-697b-424e-81d2-e6bb46a1b83e" crossorigin="anonymous" fetchpriority="high" onload="window.bcl = true;" onerror="window.bcl = false;"></script>
+			
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+			<title>Daisy Duck (Western Animation) - TV Tropes</title>
+            <meta name="description" content="Daisy Duck is the girlfriend of Donald Duck, best friend of Minnie Mouse, and is a recurring character in Disney media. She first appeared in the 1940 short &hellip;" />
+                        <link rel="canonical" href="https://tvtropes.org/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck" />
+            
+
+                        <link rel="shortcut icon" href="https://assets.tvtropes.org/img/icons/favicon.ico" type="image/x-icon" />
+
+                        <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:site" content="@tvtropes" />
+            <meta name="twitter:owner" content="@tvtropes" />
+            <meta name="twitter:title" content="Daisy Duck (Western Animation) - TV Tropes" />
+            <meta name="twitter:description" content="Daisy Duck is the girlfriend of Donald Duck, best friend of Minnie Mouse, and is a recurring character in Disney media. She first appeared in the 1940 short &hellip;" />
+            <meta name="twitter:image:src" content="https://static.tvtropes.org/pmwiki/pub/images/daisy_duck_transparent.png" />
+
+                        <meta property="og:site_name" content="TV Tropes" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="article:publisher" content="https://www.facebook.com/tvtropes" />
+			<meta property="og:title" content="Daisy Duck" />
+			<meta property="og:type" content="video.tv_show" />
+			<meta property="og:url" content="https://tvtropes.org/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck" />
+
+			<meta property="og:image" content="https://static.tvtropes.org/pmwiki/pub/images/daisy_duck_transparent.png" />
+			<meta property="og:description" content="Daisy Duck is the girlfriend of Donald Duck, best friend of Minnie Mouse, and is a recurring character in Disney media. She first appeared in the 1940 short Mr. Duck Steps Out. She was preceded by Donna Duck in Don Donald, but they usually aren't &hellip;" />
+
+                        <meta name="robots" content="max-image-preview:large">
+
+
+			            <link rel="apple-touch-icon" sizes="57x57" href="https://assets.tvtropes.org/img/icons/apple-icon-57x57.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="60x60" href="https://assets.tvtropes.org/img/icons/apple-icon-60x60.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="72x72" href="https://assets.tvtropes.org/img/icons/apple-icon-72x72.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="76x76" href="https://assets.tvtropes.org/img/icons/apple-icon-76x76.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="114x114" href="https://assets.tvtropes.org/img/icons/apple-icon-114x114.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="120x120" href="https://assets.tvtropes.org/img/icons/apple-icon-120x120.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="144x144" href="https://assets.tvtropes.org/img/icons/apple-icon-144x144.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="152x152" href="https://assets.tvtropes.org/img/icons/apple-icon-152x152.png" type="image/png">
+            <link rel="apple-touch-icon" sizes="180x180" href="https://assets.tvtropes.org/img/icons/apple-icon-180x180.png" type="image/png">
+            <link rel="icon" sizes="16x16" href="https://assets.tvtropes.org/img/icons/favicon-16x16.png" type="image/png">
+            <link rel="icon" sizes="32x32" href="https://assets.tvtropes.org/img/icons/favicon-32x32.png" type="image/png">
+            <link rel="icon" sizes="96x96" href="https://assets.tvtropes.org/img/icons/favicon-96x96.png" type="image/png">
+            <link rel="icon" sizes="192x192" href="https://assets.tvtropes.org/img/icons/favicon-192x192.png" type="image/png">
+
+                        
+                        
+						<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+                        <link rel="stylesheet" href="https://assets.tvtropes.org/design/assets/bundle.css?rev=837eba629aae42d6ced50e00a6cd91a1c3f1621c" />
+
+            <!-- Smart App Banner for iOS -->
+            <meta name="apple-itunes-app" content="app-id=6738365737, app-argument=tvtropes://pmwiki/pmwiki.php/WesternAnimation/DaisyDuck">
+
+                                                
+                        
+                        
+                        
+        </head>
+ <body class=" ">
+
+        <i id="user-prefs"></i>
+    <script>updateUserPrefs(); 
+    show_promo();
+    const af = 0;
+    </script>
+
+    <div id="modal-box">
+        <div class="modal-loading-graphic"></div>
+    </div>
+    <style>
+        @keyframes rotate-forever {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #modal-box > .modal-loading-graphic {
+            display: none; /* Hidden by default */
+
+            width: 80px;
+            height: 80px;
+
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            box-sizing: border-box;
+
+            position: absolute;
+            top: calc(30% - 40px);
+            left: calc(50% - 40px);
+            z-index: 2;
+
+            animation: rotate-forever 0.34s linear infinite;
+
+        }
+        #modal-box.active > .modal-loading-graphic {
+            display: block; /* Show only when modal is active */
+        }
+    </style>
+
+    <!-- if user is logged in, show header banner otherwise show footer banner -->
+    
+<div class="outer-promo-banner" id="outer-promo-banner">
+    <div class="promo-banner">
+        <img src="/images/tvtropes_logo_180x180.png" alt="TVTropes Logo" class="promo-logo">
+        <div class="promo-text-container">
+            <span class="promo-text-top">TVTropes</span>
+            <span class="promo-text">Now available in the app store!</span>
+        </div>
+        <a href="#" class="promo-button" id="promo-app-link">Open</a>
+
+        <a href="#" id="promo-close-button"><i class="fa fa-close"></i></a>
+    </div>
+</div>
+
+<script>
+    // Detect if browser is Safari
+    function is_ios_safari(){
+        var ua = navigator.userAgent;
+        return /iP(hone|ad|od)/.test(ua) && /Safari/.test(ua) && !/CriOS|FxiOS|OPiOS|EdgiOS/.test(ua);
+    }
+
+    // Detect OS only
+    function get_mobile_type(){
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        if(/iPhone|iPad|iPod/i.test(userAgent)){
+            return "iOS";
+        } else if(/Android/i.test(userAgent)){
+            return "Android";
+        } else {
+            return "Other";
+        }
+    }
+
+    // Get current page path for deep linking (use tvtropes:// custom scheme)
+    var deepLink = "tvtropes://" + window.location.pathname.replace(/^\//, '');
+
+    // App store URLs
+    var appStoreUrls = {
+        iOS: "https://apps.apple.com/app/6738365737",
+        Android: "https://play.google.com/store/apps/details?id=org.tvtropes.app"
+    };
+
+    var promo_link = document.getElementById("promo-app-link");
+    var os = get_mobile_type();
+
+    if(os === "iOS" && is_ios_safari()){
+        // Safari iOS — rely on native Smart App Banner, hide custom one
+        document.body.classList.remove("app-promo");
+    }
+    else{
+        // Handle click with smart fallback for all other browsers
+        promo_link.addEventListener("click", function(e){
+            e.preventDefault();
+
+            var fallbackUrl = appStoreUrls[os] || appStoreUrls.iOS;
+            var appOpened = false;
+
+            // Set up fallback to app store
+            var fallbackTimeout = setTimeout(function(){
+                // If we're still here after 1.5s, app probably isn't installed
+                if(!appOpened && document.visibilityState !== "hidden"){
+                    window.location.href = fallbackUrl;
+                }
+            }, 1500);
+
+            // Listen for page visibility change (app opened successfully)
+            var handleVisibilityChange = function(){
+                if(document.visibilityState === "hidden"){
+                    appOpened = true;
+                    clearTimeout(fallbackTimeout);
+                }
+            };
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+
+            // Clean up listener after attempt
+            setTimeout(function(){
+                document.removeEventListener("visibilitychange", handleVisibilityChange);
+            }, 2000);
+
+            // Attempt to open the app
+            window.location.href = deepLink;
+        });
+    }
+</script>
+
+    <header id="main-header-bar" class="headroom-element ">
+        <div id="main-header-bar-inner">
+
+            <span id="header-spacer-left" class="header-spacer"></span>
+
+            <a href="#mobile-menu" id="main-mobile-toggle" class="mobile-menu-toggle-button tablet-on"><span></span><span></span><span></span></a>
+
+            <a href="/" id="main-header-logoButton" class="no-dev"></a>
+
+            <span id="header-spacer-right" class="header-spacer"></span>
+
+            <nav id="main-header-nav" class="tablet-off">
+                <a href="/pmwiki/pmwiki.php/Main/Tropes">Tropes</a>
+                <a href="/pmwiki/pmwiki.php/Main/Media">Media</a>
+                <a href="/pmwiki/review_activity.php" class="nav-browse">Reviews</a>
+                <a href="/pmwiki/popular-pages.php">Popular</a>
+                <a href="/pmwiki/topics.php">Forums</a>
+                <a href="/pmwiki/recent_videos.php" >Videos</a>
+            </nav>
+
+            <div id="main-header-bar-right">
+                                <div id="signup-login-box" class="font-xs mobile-off">
+                    <a href="#" class="hover-underline bold" data-modal-target="signup">Join</a>
+                    <a href="#" class="hover-underline bold" data-modal-target="login">Login</a>
+                </div>
+                
+                                <div id="signup-login-mobileToggle" class="mobile-on inline">
+                    <a href="#" data-modal-target="login"><i class="fa fa-user"></i></a>
+                </div>
+                
+                <div id="search-box">
+                    <form class="search" action="/pmwiki/search_result.php" onSubmit="return sendToSiteSearch(this, this.q.value);">
+                        <input type="text" name="q" class="search-box" placeholder="Search" value="" required>
+                        <input id="main_search_submit"type="submit" class="submit-button" value="&#xf002;" />
+                    </form>
+                    <a href="#close-search" class="mobile-on mobile-search-toggle close-x"><i class="fa fa-close"></i></a>
+                </div>
+
+                <div id="random-box">
+                    <a href="/pmwiki/randomitem.php?p=1" class="button-random-trope" rel="nofollow" onclick="gtag('event', 'trope_random_button_click', {'is_user': 0});"></a>
+                    <a href="/pmwiki/randomitem.php?p=2" class="button-random-media" rel="nofollow" onclick="gtag('event', 'media_random_button_click', {'is_user': 0});"></a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="mobile-menu" class="tablet-on"><div class="mobile-menu-options">
+
+    <div class="nav-wrapper">
+        <a href="/pmwiki/pmwiki.php/Main/Tropes" class="xl">Tropes</a>
+        <a href="/pmwiki/pmwiki.php/Main/Media" class="xl">Media</a>
+        <a href="/pmwiki/review_activity.php" class="xl">Reviews</a>
+        <a href="/pmwiki/popular-pages.php" class="xl">Popular</a>
+        <a href="/pmwiki/index_report.php" class="xl">Indexes</a>
+        <a href="/pmwiki/topics.php" class="xl">Forums</a>
+        <a href="/pmwiki/recent_videos.php" class="xl">Videos</a>
+
+        <a href="/pmwiki/query.php?type=att">Ask The Tropers</a>
+        <a href="/pmwiki/query.php?type=tf">Trope Finder</a>
+        <a href="/pmwiki/query.php?type=ykts">Media Finder</a>
+        <a href="/pmwiki/tlp_activity.php">Trope Launch Pad</a>
+        <a href="/pmwiki/query.php?type=wl">Tech Wishlist</a>
+        <a href="/pmwiki/browse.php">Browse</a> 
+        
+                <a href="#tools" data-click-toggle="active">Tools <i class="fa fa-chevron-down"></i></a>
+        <div class="tools-dropdown mobile-dropdown-linkList">
+            <a href="/pmwiki/cutlist.php" data-modal-target="login" rel="nofollow">Cut List</a>
+            <a href="/pmwiki/image-fixer.php" data-modal-target="login" rel="nofollow">Image Fixer</a>
+            <a href="/pmwiki/changes.php">New Edits</a>
+            <a href="/pmwiki/articles_new.php">New Articles</a>
+            <a href="/pmwiki/recent_edit_reasons.php">Edit Reasons</a>
+            <a href="/pmwiki/launches.php" data-modal-target="login" rel="nofollow">Launches</a>
+            <a href="/pmwiki/img_list.php" data-modal-target="login" rel="nofollow">Images List</a>
+            <a href="/pmwiki/crown_activity.php">Crowner Activity</a>
+            <a href="/pmwiki/no_types.php">Un-typed Pages</a>
+            <a href="/pmwiki/page_type_audit.php">Recent Page Type Changes</a>
+            <a href="/pmwiki/changelog.php">Changelog</a>
+        </div>
+
+        <a href="#tips" data-click-toggle="active">Tips <i class="fa fa-chevron-down"></i></a>
+        <div class="tips-dropdown mobile-dropdown-linkList">
+                <a href="/pmwiki/pmwiki.php/Administrivia/CreatingNewRedirects">Creating New Redirects</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/Crosswicking">Cross Wicking</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/TipsForEditing">Tips for Editing</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/TextFormattingRules">Text Formatting Rules</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/TVTropesGlossary?from=Main.TVTropesGlossary">Glossary</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/EditReasonsAndWhyYouShouldUseThem">Edit Reasons</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/HandlingSpoilers">Handling Spoilers</a>
+                <a href="/pmwiki/pmwiki.php/Administrivia/WordCruft">Word Cruft</a>
+                <a href="/pmwiki/pmwiki.php/Main/Administrivia">Administrivia</a>
+                <a href="/pmwiki/pmwiki.php/Main/FAQ">FAQ</a>
+        </div>
+        
+        <a href="#hq" data-click-toggle="active">Tropes HQ <i class="fa fa-chevron-down"></i></a>
+
+        <div class="tools-dropdown mobile-dropdown-linkList">
+            <a href="/pmwiki/about.php">About Us</a>
+            <a href="/pmwiki/contact.php">Contact Us</a>
+            <a href="/pmwiki/dmca.php">DMCA Notice</a>
+            <a href="/pmwiki/privacypolicy.php">Privacy Policy</a>
+            <a href="/pmwiki/query.php?type=bug">Report Bug</a>
+            <a href="/pmwiki/termsofservice.php">Terms Of Service</a>
+        </div>
+
+        <a href="/pmwiki/ad-free-subscribe.php">Go Ad-Free</a>
+        <a href="/pmwiki/changelog.php">Changelog</a></li>
+
+        <div class="toggle-switches">
+            <ul class="mobile-menu display-toggles">
+                <li>Show Spoilers <div id="mobile-toggle-showspoilers" class="display-toggle show-spoilers"></div></li>
+                <li>Night Vision <div id="mobile-toggle-nightvision" class="display-toggle night-vision"></div></li>
+                <li>Sticky Header <div id="mobile-toggle-stickyheader" class="display-toggle sticky-header"></div></li>
+                <li>Highlight Links <div id="mobile-toggle-highlightlinks" class="display-toggle highlight-links"></div></li>
+            </ul>
+            <script>updateMobilePrefs();</script>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+    </header>
+
+    <div id="homepage-introBox-mobile" class="mobile-on">
+                  <a href="/"><img src="/images/logo-white-big.png" class="logo-small" /></a>
+        
+        <form class="search" action="/pmwiki/search_result.php" style="margin:10px -5px -6px -5px;" onSubmit="return sendToSiteSearch(this, this.q.value);">
+            <input type="text" name="q" class="search-box" placeholder="Search" value="" required>
+            <input type="submit" class="submit-button" value="&#xf002;" />
+        </form>
+
+            </div>
+        
+        <script type="text/javascript" name="tvtropes-js">function get_device_type(){var ua=navigator.userAgent.toLowerCase();var device_type="";if(/(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(ua)){device_type="mobile";}else if(/(mobi|ipod|phone|blackberry|opera mini|fennec|minimo|symbian|psp|nintendo ds|archos|skyfire|puffin|blazer|bolt|gobrowser|iris|maemo|semc|teashark|uzard)/.test(ua)){device_type="mobile";}else{device_type="desktop";}return device_type;}var device_type=get_device_type();var show_modal_loaded=false;function show_modal(type,message,confirmation_url,call_back,oauth_finalize,groupname,title,video_id,author,time,replytext){console.log("showing modal "+type);const modalBox=document.getElementById('modal-box');const childDivs=modalBox.querySelectorAll(':scope > div');if(childDivs.length>1){kill_modal();}modalBox.classList.add('active');let alert='';if(typeof message==='object'&&message!==null){Object.keys(message).forEach(function(key){alert+='&'+key+'='+encodeURIComponent(message[key]);});}else{alert='&message='+encodeURIComponent(message);}const url='/design/parts/component-modalBox.php?window='+type+alert+(confirmation_url?'&curl='+encodeURIComponent(confirmation_url):"")+(oauth_finalize?'&oauth_finalize='+encodeURIComponent(oauth_finalize):"")+(groupname?'&groupname='+groupname:"")+(video_id?'&video_id='+encodeURIComponent(video_id):"")+(author?'&author='+encodeURIComponent(author):"")+(time?'&time='+encodeURIComponent(time):"");const body_data=new URLSearchParams();if(replytext)body_data.append('replytext',replytext);fetch(url,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body_data.toString()}).then(response=>response.text()).then(html=>{modalBox.innerHTML=html;const scripts=modalBox.querySelectorAll('script');scripts.forEach(script=>{const newScript=document.createElement('script');newScript.type='text/javascript';if(script.src){newScript.src=script.src;if(newScript.src.includes('/design/js/dropzone.js')){newScript.onload=function(){const img_uploader_script=document.createElement('script');img_uploader_script.type='text/javascript';img_uploader_script.src="/design/js/imguploader.js";img_uploader_script.onload=function(){myAwesomeDropzone=new Dropzone("#myAwesomeDropzone",{url:"/ajax/uploadImg.php"});};document.body.appendChild(img_uploader_script);}}}else{newScript.textContent=script.textContent;}script.parentNode.removeChild(script);modalBox.appendChild(newScript);});if(call_back){call_back();}});if(show_modal_loaded==false){modalBox.addEventListener('click',function(e){if(e.target===e.currentTarget){if(modalBox.querySelector('#verify-ip-content'))return;kill_modal();}});}show_modal_loaded=true;}function kill_modal(){console.log("killing modal");const modalBox=document.getElementById('modal-box');modalBox.classList.remove('active');modalBox.innerHTML='<div class="modal-loading-graphic"></div>';}function pause_modal(){var modal=document.querySelector('#modal-box > div.modal');if(!modal)modal=document.querySelector('#modal-box');modal.classList.add('hidden');const modalBox=document.getElementById('modal-box');modalBox.classList.add('paused');const loadingGraphic=document.createElement('div');loadingGraphic.className='modal-loading-graphic';modalBox.appendChild(loadingGraphic);}function unpause_modal(){const modalBox=document.getElementById('modal-box');modalBox.classList.remove('paused');var modal=document.querySelector('#modal-box > div.modal');if(!modal)modal=document.querySelector('#modal-box');modal.classList.remove('hidden');const loadingGraphic=document.querySelector('#modal-box > div.modal-loading-graphic');if(loadingGraphic){modalBox.removeChild(loadingGraphic);}}function show_loader(){console.log("Displaying loading graphic");kill_modal();const modalBox=document.getElementById('modal-box');modalBox.classList.add('active');const loadingGraphic=document.createElement('div');loadingGraphic.className='modal-loading-graphic';modalBox.appendChild(loadingGraphic);}function togglenote(id){var ele=object(id);var state=ele.style.display;if(state=='none')ele.style.display='inline';if(state=='inline')ele.style.display='none';}function toggle_more_menu(position){var more_menu=document.getElementById(position+"_more_list");more_menu.classList.toggle("hidden_more_list");more_menu.classList.toggle("display");var menu_button=document.getElementById(position+"_more_button");menu_button.classList.toggle("is-open");}function scroll_to_top(duration){var start=window.pageYOffset;var start_time=performance.now();if('requestAnimationFrame'in window===false){window.scrollTo(0,0);return;}function scroll(){var current_time=performance.now();var elapsed_time=current_time-start_time;var progress=elapsed_time/duration;var ease_in_out_quad=progress<0.5?2*progress*progress:-1+(4-2*progress)*progress;window.scrollTo(0,start*(1-ease_in_out_quad));if(elapsed_time<duration){requestAnimationFrame(scroll);}else{window.scrollTo(0,0);}}scroll();}function toggleAllFolders(){}function togglefolder(id){}const mobile_menu_button=document.querySelector('.mobile-menu-toggle-button');if(mobile_menu_button){mobile_menu_button.addEventListener('click',function(e){e.preventDefault();const header=document.querySelector('header#main-header-bar');if(header.classList.contains('mobile-menu-active')){header.classList.remove('mobile-menu-active');}else{header.classList.add('mobile-menu-active');}});}var global_pHeight=0;var search_form=document.querySelector("form.search");var search_button=document.querySelector("#main_search_submit");var hardcoded_loaded=true;if(search_form&&search_button){search_button.addEventListener("click",function(e){var query=search_form.q.value.trim();var search_url="/pmwiki/search_result.php#gsc.tab=0&gsc.q="+encodeURIComponent(query)+"&gsc.sort=";if(e.metaKey||e.ctrlKey||e.shiftKey){e.preventDefault();e.stopImmediatePropagation();window.open(search_url,'_blank');return false;}if(query.trim()===""){return false;}e.preventDefault();window.location.href=search_url;});}var floodParam=new URLSearchParams(window.location.search).get('flood');if(floodParam){var floodMsg=floodParam==='spam'?'Too many posts in a row, please wait for someone else to post first. You can also edit your comment to add more details you forgot.':'Too many posts in a short period of time. Please try again later.';show_modal('alert',floodMsg);var params=new URLSearchParams(window.location.search);params.delete('flood');history.replaceState(null,'',window.location.pathname+(params.toString()?'?'+params.toString():''));}var suspendedParam=new URLSearchParams(window.location.search).get('suspended');if(suspendedParam){show_modal('alert',"Your permissions for this area have been suspended. Please visit <a href='/pmwiki/pmwiki.php/Administrivia/WhatToDoIfYouAreSuspended'>this page</a> for more details.");var params=new URLSearchParams(window.location.search);params.delete('suspended');history.replaceState(null,'',window.location.pathname+(params.toString()?'?'+params.toString():''));}document.addEventListener('DOMContentLoaded',function(){if(device_type=='mobile')return;var user_prefs=document.getElementById('user-prefs');var hide_laconic_hover=user_prefs.classList.contains('hide-laconic-hover');var currentUrl=window.location.pathname;var urlMatch=currentUrl.match(/\/pmwiki\.php\/([^\/]+)\/([^\/?#]+)/);var currentGroupname=urlMatch?urlMatch[1]:'';var currentTitle=urlMatch?urlMatch[2]:'';var test_pages=['TechnologyMarchesOn','EnhanceButton','RetroUpgrade','TechnologyPorn','PowerFloats','EquipmentUpgrade'];var sub_test_page=currentGroupname==='Main'&&test_pages.includes(currentTitle);if((af==0&&!sub_test_page)||hide_laconic_hover)return;var popup=document.createElement('div');popup.id='hover_popup';popup.style.position='absolute';popup.style.background='#636f7e';popup.style.color='#fff';popup.style.border='1px solid #515151';popup.style.padding='10px';popup.style.maxWidth='300px';popup.style.zIndex='9999999';popup.style.display='none';popup.style.borderRadius='5px';popup.style.boxShadow='#2525259e 2px 2px 6px';popup.style.lineHeight='1.2';popup.classList.add('laconic-hover-popup');document.body.appendChild(popup);var hover_timer=null;var laconic_cache={};document.body.addEventListener('mouseover',function(e){var target=e.target;if(target.tagName==='A'&&target.href.includes('tvtropes.org')&&target.href.includes('pmwiki.php')){if(target.classList.contains('article-edit-button')||target.id==='WikiWordModalLink'||target.classList.contains('watch-button')){return;}if(target.hasAttribute('title')){target.setAttribute('data-original-title',target.getAttribute('title'));target.removeAttribute('title');}var parent=target.parentElement;while(parent&&parent!==document.body){if(parent.hasAttribute('title')){parent.setAttribute('data-laconic-suppressed-title',parent.getAttribute('title'));parent.removeAttribute('title');}parent=parent.parentElement;}hover_timer=setTimeout(function(){if(laconic_cache[target.href]){popup.innerHTML=laconic_cache[target.href];popup.style.top=(e.pageY+10)+'px';popup.style.left=(e.pageX+10)+'px';popup.style.display='block';}else{var post_data=new URLSearchParams();post_data.append('url',target.href);post_data.append('sub_test_page',sub_test_page);fetch('/ajax/laconic_hover.php',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:post_data}).then(response=>response.json()).then(data=>{if(data.success){popup.innerHTML='';var laconicLabel=document.createElement('span');laconicLabel.className='laconic-label';if(data.has_laconic){laconicLabel.textContent=data.title;}else{laconicLabel.textContent=data.groupname+' / '+data.title;}popup.appendChild(laconicLabel);var laconicText=document.createElement('div');laconicText.className='laconic-text';laconicText.innerHTML=data.preview_html;popup.appendChild(laconicText);if(live_ads==1){var subscriberMessage=document.createElement('div');subscriberMessage.className='subscriber-only-message';subscriberMessage.style.marginTop='8px';subscriberMessage.style.fontSize='13px';subscriberMessage.style.fontStyle='italic';subscriberMessage.style.opacity='0.8';subscriberMessage.style.color='#ffffff';subscriberMessage.style.textAlign='center';subscriberMessage.textContent='*** subscriber-only feature ***';popup.appendChild(subscriberMessage);}laconic_cache[target.href]=popup.innerHTML;popup.style.top=(e.pageY+10)+'px';popup.style.left=(e.pageX+10)+'px';popup.style.display='block';}});}},500);function moveHandler(ev){popup.style.top=(ev.pageY+10)+'px';popup.style.left=(ev.pageX+10)+'px';}target.addEventListener('mousemove',moveHandler);function outHandler(){clearTimeout(hover_timer);popup.style.display='none';if(target.hasAttribute('data-original-title')){target.setAttribute('title',target.getAttribute('data-original-title'));target.removeAttribute('data-original-title');}var parent=target.parentElement;while(parent&&parent!==document.body){if(parent.hasAttribute('data-laconic-suppressed-title')){parent.setAttribute('title',parent.getAttribute('data-laconic-suppressed-title'));parent.removeAttribute('data-laconic-suppressed-title');}parent=parent.parentElement;}target.removeEventListener('mousemove',moveHandler);target.removeEventListener('mouseout',outHandler);}target.addEventListener('mouseout',outHandler);}});});document.body.addEventListener('click',function(e){const target=e.target.closest('.watch-button');const loggedInElement=document.getElementById('logged_in');const loggedIn=loggedInElement?loggedInElement.value:null;const checkbox=e.target.closest('.toggle_hide_likes_checkbox');if(checkbox){e.preventDefault();const groupname=checkbox.dataset.groupname;const title=checkbox.dataset.title;fetch('/ajax/hide_likes.php?groupname='+encodeURIComponent(groupname)+'&title='+encodeURIComponent(title)).then(function(response){if(!response.ok)throw new Error('Network response was not ok');return response.json();}).then(function(data){if(data.success){checkbox.checked=data.likes_hidden==1;const thumbVoteArea=document.querySelector('.thumb-vote-area');if(thumbVoteArea&&data.likes_hidden==1){thumbVoteArea.style.display='none';}else if(thumbVoteArea){thumbVoteArea.style.display='';}}}).catch(function(error){console.error('Fetch error:',error);});}if(e.target.closest('#desktop-on-mobile-toggle > a')){e.preventDefault();var body_class="desktop-on-mobile";var userPrefs=document.getElementById('user-prefs');if(userPrefs.classList.contains(body_class)){cookies.remove(body_class);}else{cookies.create(body_class,'true',300,'/');}location.reload();}if(e.target.closest('.display-toggles > li')){e.preventDefault();var li=e.target.closest('.display-toggles > li');var toggle=li.querySelector('.display-toggle');var setting_map={'profile-toggle-show-namespaces':'show-namespaces','profile-toggle-nightvision':'night-vision','profile-toggle-stickyheader':'sticky-header','profile-toggle-wideload':'wide-load','profile-toggle-showspoilers':'show-spoilers','sidebar-toggle-nightvision':'night-vision','sidebar-toggle-stickyheader':'sticky-header','sidebar-toggle-wideload':'wide-load','sidebar-toggle-showspoilers':'show-spoilers','mobile-toggle-nightvision':'night-vision','mobile-toggle-stickyheader':'sticky-header','mobile-toggle-highlightlinks':'highlight-links','mobile-toggle-showspoilers':'show-spoilers','profile-toggle-wysiwyg-toggle':'wysiwyg-toggle','profile-toggle-monofont':'mono-font','editor-toggle-monofont':'mono-font','profile-toggle-foldersopen':'folders-open','profile-toggle-lefthandsidebar':'lefthand-sidebar','profile-toggle-highlightlinks':'highlight-links','profile-toggle-forumgingerbread':'forum-gingerbread','profile-toggle-acceptshare':'accept-share','profile-toggle-stopautoplayvideo':'stop-auto-play-video','video-toggle-stopautoplayvideo':'stop-auto-play-video','profile-toggle-hide-likes-posts':'hide-likes-posts','profile-toggle-hide-likes-articles':'hide-likes-articles','profile-toggle-hide-laconic-hover':'hide-laconic-hover','profile-toggle-hide-justwatch-widget':'hide-justwatch-widget'};if(toggle.id==='toggle_notification_query'||toggle.id==='toggle_notification_pm'||toggle.id==='toggle_notification_video'){fetch('/ajax/toggle_user_prefs.php',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',},body:'pref='+encodeURIComponent(toggle.id)}).then(response=>response.json()).then(json=>{if(json.success){toggle.classList.toggle('active');}else{toggle.classList.toggle('active');}}).catch(error=>{console.error('Error:',error);});}var setting=setting_map[toggle.id];if(setting&&(loggedIn=='true'||tvtropes_config.is_logged_in==1)){toggle.classList.toggle('active');var user_prefs=document.querySelector('#user-prefs');if(user_prefs){user_prefs.classList.toggle(setting);}if(setting==="show-spoilers"){document.querySelectorAll('.spoiler').forEach(spoiler=>{spoiler.classList.remove('off');});}var form_data=new FormData();form_data.append('setting',setting);fetch('/ajax/update_profile_settings.php',{method:'POST',body:form_data}).then(response=>response.json()).then(data=>{if(!data.success){toggle.classList.toggle('active');var user_prefs_check=document.querySelector('#user-prefs');if(user_prefs_check&&user_prefs_check.classList.contains(setting)){user_prefs_check.classList.toggle(setting);}}}).catch(error=>{toggle.classList.toggle('active');var user_prefs_check=document.querySelector('#user-prefs');if(user_prefs_check&&user_prefs_check.classList.contains(setting)){user_prefs_check.classList.toggle(setting);}});}else if(tvtropes_config.is_logged_in!=1){var userPrefs=document.getElementById('user-prefs');userPrefs.classList.toggle(setting);if(userPrefs.classList.contains(setting)){cookies.create(setting,'true',300,'/');toggle.classList.toggle('active');}else{cookies.remove(setting);toggle.classList.toggle('active');if(setting==="show-spoilers"){document.querySelectorAll('.spoiler').forEach(spoiler=>{spoiler.classList.remove('off');});}}}}if(target&&loggedIn!==null){e.preventDefault();if(loggedIn==='true'){target.classList.add('processing');}if(target.getAttribute('data-watch-info')){var data=target.dataset.watchInfo.split(',');if(!data.length)return;var addOrDrop=target.classList.contains('watching')||target.parentElement.classList.contains('watching')?'drop':'add';handleWatchItem(addOrDrop,data[0],data[1],target);}else if(target.getAttribute('data-watch-discussion-info')){var data=target.dataset.watchDiscussionInfo.split(',');if(!data.length)return;var addOrDrop=target.classList.contains('watching')||target.parentElement.classList.contains('watching')?'drop':'add';var pageType='Discussion';handleWatchItem(addOrDrop,data[0],data[1],target,pageType);}else if(target.getAttribute('data-watch-thread-id')){var threadId=target.getAttribute('data-watch-thread-id');var url=target.classList.contains('watching')||target.parentElement.classList.contains('watching')?'/pmwiki/thread_watch_drop.php?thread=':'/pmwiki/setthreadwatch.php?d_id=';url+=threadId;handleWatchThread(url,target);}}if(e.target.classList.contains('kill-modal-button')){e.preventDefault();kill_modal();}const targetWithoutToggleTarget=e.target.closest('*[data-click-toggle]:not([data-click-toggle-target])');if(targetWithoutToggleTarget){e.preventDefault();const toggleClass=targetWithoutToggleTarget.getAttribute('data-click-toggle');targetWithoutToggleTarget.classList.toggle(toggleClass);}const targetWithToggleTarget=e.target.closest('*[data-click-toggle][data-click-toggle-target]:not(#signup-form-toggles a)');if(targetWithToggleTarget){e.preventDefault();const hasFetchArticles=targetWithToggleTarget.getAttribute('onclick')&&targetWithToggleTarget.getAttribute('onclick').includes('fetch_articles');if(!hasFetchArticles){e.stopPropagation();}const toggleTargetId=targetWithToggleTarget.getAttribute('data-click-toggle-target');const toggleClass=targetWithToggleTarget.getAttribute('data-click-toggle');const isExclusive=targetWithToggleTarget.getAttribute('data-click-toggle-exclusive')==='true';if(isExclusive){const toggleTarget=document.getElementById(toggleTargetId);if(toggleTarget){const siblings=Array.from(toggleTarget.parentNode.children);for(let sibling of siblings){if(sibling!==toggleTarget){sibling.classList.remove(toggleClass);}}toggleTarget.classList.add(toggleClass);}}else{if(toggleTargetId.indexOf(',')>-1){const targets=toggleTargetId.split(",");targets.forEach(t=>{document.querySelectorAll('#'+t).forEach(el=>{el.classList.toggle(toggleClass);});});}else{document.querySelectorAll('#'+toggleTargetId).forEach(el=>{el.classList.toggle(toggleClass);});}}}const modalTarget=e.target.closest('*[data-modal-target]');if(modalTarget){if(!modalTarget){return;}let modal=modalTarget.getAttribute('data-modal-target');let msg=modalTarget.getAttribute('data-modal-vars')?modalTarget.getAttribute('data-modal-vars'):modalTarget.getAttribute('data-modal-confirmation-message');let url=modalTarget.getAttribute('data-modal-confirmation-url');try{var obj=JSON.parse(msg);if(obj&&typeof obj==="object"){msg=obj;}}catch(e){}if(modal==="allow")return;e.preventDefault();if(modal.substring(0,6)==="alert-"){const msgArr={"alert-banned":"Your permissions for this area have been suspended. Please visit <a href='/pmwiki/pmwiki.php/Administrivia/WhatToDoIfYouAreSuspended'>this page</a> for more details.","alert-bounced":"This account has committed severe or repeated violations of our rules and is permanently denied access to many of the account features of the site. If you feel that this may be an error, please <a href=\"/pmwiki/contact.php\">contact the mods</a>.","alert-denied":"Your account was denied by a moderator. If you believe this was done in error please <a href=\"/pmwiki/contact.php\">contact the mods</a>.","alert-verify":"You must verify your email address before doing this. Check your email for a link.","alert-approval":"Your account must be approved by a moderator before you can do this. If you still have this problem in a couple hours try <a href=\"/pmwiki/contact.php\">contacting the mods</a>.","alert-age":"Your account is not old enough. Give it a little more time.","alert-mod":"This page is only for moderators. Try something else.","alert-db":"We are currently updating our servers. Please check back later."};if(modal in msgArr){msg=msgArr[modal];}else{msg="Unknown error. Please <a href=\"/pmwiki/contact.php\">Contact us</a> if the problem persists.";}modal="alert";}show_modal(modal,msg,url);}const spoilers=e.target.closest('.spoiler');if(spoilers){spoilers.classList.toggle('off');}const folders=e.target.closest('.folderlabel');if(folders&&e.target.getAttribute('onclick')!=="toggleAllFolders();"){e.preventDefault();folders.classList.toggle('is-open');let folder=folders.nextElementSibling;if(folders.classList.contains('is-open')){gtag('event','folder_click',{'device_type':device_type});}if(folder&&folders.classList.contains('is-open')&&live_ads==1&&(document.body.clientWidth&&document.body.clientWidth<=993)&&tvtropes_config.universal_page_type=='Article'){if(folder.querySelectorAll('.tvtropes-ad-unit').length===0){global_pHeight=insert_ads_in_content(folder,globalAdInsertionCount,global_pHeight);}}}const allFolders=e.target.closest('div[onclick*="toggleAllFolders()"]');if(allFolders){let parentElement=allFolders.parentNode;if(parentElement.tagName==='H2')parentElement=parentElement.parentNode;let isCurrentlyOpen=e.target.classList.contains('is-open');let foldersAndButtons=parentElement.querySelectorAll('.folderlabel, .toggle-all-folders-button');foldersAndButtons.forEach(function(element){if(isCurrentlyOpen){element.classList.remove('is-open');}else{element.classList.add('is-open');}});if(!isCurrentlyOpen){gtag('event','all_folders_click',{'device_type':device_type});parentElement.querySelectorAll('.folder').forEach(function(folder){if(!folder.querySelector('.tvtropes-ad-unit')&&live_ads==1&&(document.body.clientWidth&&document.body.clientWidth<=993)&&tvtropes_config.universal_page_type=='Article'){global_pHeight=insert_ads_in_content(folder,globalAdInsertionCount,global_pHeight);}});}}},true);var handleWatchItem=function(addOrDrop,groupname,title,obj,pageType=''){fetch("/ajax/watchlist.php",{method:"POST",headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},body:`groupname=${encodeURIComponent(groupname)}&title=${encodeURIComponent(title)}&type=${encodeURIComponent(addOrDrop)}&json=1&pageType=${encodeURIComponent(pageType)}`}).then(response=>response.json()).then(data=>{obj.classList.remove('processing');if(obj.classList.contains('tile-watch-button')){obj.parentNode.classList.toggle('watching');}else{obj.classList.toggle('watching');}}).catch(error=>{obj.classList.remove('processing');show_modal('alert-red','Whoops, something went wrong. Please try adding again.');});};var handleWatchThread=function(url,obj){fetch(url).then(response=>response.text()).then(data=>{obj.classList.remove('processing');if(obj.classList.contains('tile-watch-button')){obj.parentNode.classList.toggle('watching');}else{obj.classList.toggle('watching');}}).catch(error=>{obj.classList.remove('processing');show_modal('alert-red','Whoops, something went wrong. Please try adding again.');});};function copyVideoLinkToClipboard(video_id,element){var playerElement=document.getElementById('tvtropes_overlay_player');if(playerElement&&element.closest('._pmvv-vidbox-desc')){var currentVideoId=playerElement.getAttribute('data-video-id');if(currentVideoId){video_id=currentVideoId;}}if(!video_id){alert('Unable to get video information');return;}if(video_id.startsWith('tvtropes-videos-')){video_id=video_id.replace('tvtropes-videos-','');}var url='https://tvtropes.org/pmwiki/video_example.php?video_id='+video_id;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){showCopyFeedback(element);}).catch(function(err){console.error('Failed to copy link: ',err);});}else{console.error('Clipboard API not supported');}}function showCopyFeedback(element){var feedback=element.parentElement.querySelector('.copy-feedback');if(feedback){feedback.style.display='inline';setTimeout(function(){feedback.style.display='none';},1500);}}(()=>{function sw956zcjwl(){const main_container=document.getElementById("main-content");const main_entry=document.getElementById("main-entry");if(main_entry?.parentNode)main_entry.parentNode.removeChild(main_entry);const new_main=document.createElement("article");new_main.id="main-entry";new_main.className="with-sidebar";const notice=vk71e();if(notice)new_main.appendChild(notice);if(main_container)main_container.appendChild(new_main);const btn=document.getElementById("btn_599yj7t8");if(btn)btn.addEventListener("click",a35e8nj1);const refresh=document.querySelector(".refresh_btn");if(refresh)refresh.addEventListener("click",()=>location.reload());}function rmjln(){m6p5jd.ztq28km("ad_block_detected","true",365,"/");let user_id=m6p5jd.qy42t("user_id");if(!user_id){user_id=asjww085wr();m6p5jd.ztq28km("user_id",user_id,365,"/");}const post=new URLSearchParams();post.append("device_type",rwb5x2);post.append("user_id",user_id);post.append("user_agent",navigator.userAgent);post.append("page_path",location.pathname+location.search+location.hash);fetch("/ajax/a_b_d.php",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:post}).catch(()=>{});}function utu8yc2re(){if(window.matchMedia("(max-width: 768px)").matches)return"mobile";if(window.matchMedia("(max-width: 980px)").matches)return"tablet";return"desktop";}const rwb5x2=utu8yc2re();function a35e8nj1(){const panel=document.getElementById("instr_599yj7t8");if(!panel)return;if(panel.classList.contains("open")){panel.classList.remove("open");return;}panel.classList.add("open");liz035bi();z73e6ttt("adblock");}function liz035bi(){const tabs=document.querySelectorAll(".extension_tab");tabs.forEach(tab=>{tab.addEventListener("click",()=>{tabs.forEach(t=>t.classList.remove("active"));tab.classList.add("active");z73e6ttt(tab.getAttribute("data-extension"));});});};function z73e6ttt(extension){const content=document.getElementById("instruction_content");if(!content)return;const instructions={adblock:['click the adblock icon <span class="extension_icon adblock_icon" style="display:inline-flex;width:16px;height:16px;align-items:center;justify-content:center;border-radius:50%;">🛑</span> in your browser toolbar.',"choose <strong>don't run on pages on this site</strong> (or <strong>pause on this site</strong>).","confirm and refresh the page."],adblockplus:["click the adblock plus icon in your browser toolbar.","toggle the power button to disable on this site.","click refresh."],ublockorigin:['click the ublock origin icon <span class="extension_icon ublockorigin_icon" style="display:inline-flex;width:16px;height:16px;align-items:center;justify-content:center;border-radius:50%;">uo</span> in your browser toolbar.',"click the power button to disable for this site (it turns gray).","click the reload icon or refresh the page."],other:["open your ad blocker extension menu.","look for a “pause on this site” or “allowlist site” option.","confirm and refresh the page."]};const list=instructions[extension]||instructions.other;content.innerHTML=list.map((step,i)=>`<li class="instruction_item"><div class="instruction_number">${i+1}</div><div class="instruction_text">${step}</div></li>`).join("");}const m6p5jd={qy42t(n){return document.cookie.split(/;\s*/).map(s=>s.split("=")).reduce((a,[k,...v])=>{a[decodeURIComponent(k)]=decodeURIComponent(v.join("=")||"");return a;},{})[n];},ztq28km(n,v,days,path="/"){const d=new Date(Date.now()+days*864e5).toUTCString();document.cookie=`${encodeURIComponent(n)}=${encodeURIComponent(v)}; Expires=${d}; Path=${path}; SameSite=Lax`;}};function asjww085wr(){let d=Date.now();if(performance?.now)d+=performance.now();return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=(d+Math.random()*16)%16|0;d=Math.floor(d/16);return(c==="x"?r:(r&0x3|0x8)).toString(16);});};let e7qzv=false;function n0piox(){let mvtue4aso=false;setTimeout(()=>{const w=document.body?.clientWidth||0;if(w>=981){const el=document.getElementById("stick-cont");if(el&&el.offsetHeight===0)mvtue4aso=true;}else if(w<=768){const el=document.querySelector(".tvtropes-ad-unit.mobile-fad");if(el&&el.offsetHeight===0)mvtue4aso=true;}if(mvtue4aso){e7qzv=true;sw956zcjwl();rmjln();}},100);}function brdbe4qoe5(){if(e7qzv)return;var keil2d9rpf=['https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js','https://securepubads.g.doubleclick.net/tag/js/gpt.js','https://www.googletagservices.com/dcm/dcmads.js'];var hddg8ortd5=['https://cdn.bigcrunch.com/ads.js?asdf=xxx',];var ihlb7u=0;var qdrkrolh=false;var d8lnfxq=false;var v5t8bpm=false;function n3qeb33n(){var wgq1gipaa=arguments[0]||0;var zdvk4l02=window[fa81726y.gtm];var y1ojr2=window[fa81726y.bc];if(!v5t8bpm){v5t8bpm=true;keil2d9rpf.forEach(function(url){var script=document.createElement('script');script.src=url;script.onload=function(){};script.onerror=function(){ihlb7u++;};document.head.appendChild(script);});hddg8ortd5.forEach(function(url){var script=document.createElement('script');script.src=url;script.onload=function(){setTimeout(function(){if(typeof window.pbjs==='undefined'||!window.pbjs.installedModules||!Array.isArray(window.pbjs.installedModules)||window.pbjs.installedModules.length===0||!window.pbjs.libLoaded||typeof window.pbjs.version==='undefined'){qdrkrolh=true;}},100);};script.onerror=function(error_event){qdrkrolh=true;};document.head.appendChild(script);});}setTimeout(function(){var k28scvuxle=ihlb7u;if(zdvk4l02===false)k28scvuxle++;if(y1ojr2===false)d8lnfxq=true;if(qdrkrolh==true||d8lnfxq==true){k28scvuxle++;}if(zdvk4l02!==false&&(typeof window.dataLayer==='undefined'||!Array.isArray(window.dataLayer)||typeof window.dataLayer.push!=='function')){k28scvuxle++;}if(k28scvuxle>=2&&(qdrkrolh==true||d8lnfxq==true||zdvk4l02===false)){e7qzv=true;sw956zcjwl();rmjln();}else if((y1ojr2===undefined||zdvk4l02===undefined)&&!e7qzv&&wgq1gipaa<40){setTimeout(function(){n3qeb33n(wgq1gipaa+1);},200);}},wgq1gipaa===0?100:300);}n3qeb33n();};const fa81726y=(()=>{const gtm_original='gtl';const bc_original='bcl';const gtm_new='gtm_'+Math.random().toString(36).substr(2,9);const bc_new='bc_'+Math.random().toString(36).substr(2,9);Object.defineProperty(window,gtm_original,{get:function(){return window[gtm_new];},set:function(val){window[gtm_new]=val;},configurable:true});Object.defineProperty(window,bc_original,{get:function(){return window[bc_new];},set:function(val){window[bc_new]=val;},configurable:true});return{gtm:gtm_new,bc:bc_new,};})();function vk71e(){const nid="abn_599yj7t8";if(document.getElementById(nid))return;const wrap=document.createElement("div");wrap.id=nid;wrap.className="adblock_notice";wrap.innerHTML=`<div class="adblock_card" role="region" aria-labelledby="adblock_title" aria-describedby="adblock_desc"><img class="adblock_logo" src="https://static.tvtropes.org/pmwiki/pub/images/logo_light.png" alt="tvtropes"><h2 id="adblock_title" class="adblock_title">Please allow ads on our site or subscribe</h2><p id="adblock_desc" class="adblock_text"> Looks like you're using an ad blocker. We rely on advertising to help fund our site. Please turn off your ad blocker and refresh the page. </p><div class="adblock_actions"><button id="btn_599yj7t8" class="adblock_btn" type="button">Allow Ads</button><a id="btn_subscribe" class="adblock_btn" href="/pmwiki/ad-free-subscribe.php">Subscribe</a></div><a class="adblock_login_link" href="/pmwiki/login_prompt.php">Login</a><div id="instr_599yj7t8" class="instructions_panel" aria-live="polite"><div class="instructions_header_inline"><h3 class="instructions_title_inline">which ad blocker do you have?</h3><div class="extension_tabs"><div class="extension_tab active" data-extension="adblock"><div class="extension_icon adblock_icon">🛑</div>adblock</div><div class="extension_tab" data-extension="adblockplus"><div class="extension_icon adblockplus_icon">abp</div>adblock plus</div><div class="extension_tab" data-extension="ublockorigin"><div class="extension_icon ublockorigin_icon">uo</div>ublock origin</div><div class="extension_tab" data-extension="other"><div class="extension_icon other_icon">...</div>other</div></div></div><ol class="instruction_list" id="instruction_content"></ol><button class="refresh_btn" type="button">refresh page</button></div></div>`;return wrap;};window.addEventListener("DOMContentLoaded",()=>{n0piox();setTimeout(()=>{brdbe4qoe5();},100);});})();</script>
+    
+                    <script>
+                if(is_mobile()) {
+                    document.write("<div id=\"tvtropes_m_sticky\" class=\"htlad-tvtropes_m_sticky\"></div>");
+                }
+                else {
+                    document.write("<div id=\"tvtropes_dt_sticky\" class=\"htlad-tvtropes_dt_sticky\"></div>");
+                }
+            </script>
+
+                <div id="tvtropes_oop_ad_slot" style="display: none;"></div>
+    
+    <script>
+        if (typeof hardcoded_loaded === 'undefined') {
+            document.addEventListener('DOMContentLoaded', function() {
+                var mainEntry = document.querySelector('#main-content > #main-entry');
+                if (mainEntry) {
+                    mainEntry.innerHTML = '<div class="error-code" style="background: red; color: white; padding: 10px; margin-bottom: 10px;">ERROR_CODE: 1001</div>' +
+                                         '<div class="error-message" style="background: red; color: white; padding: 10px; margin-bottom: 10px;">folder functions error, disabling extensions in your browser should fix this</div>' +
+                                         mainEntry.innerHTML;
+                }
+            });
+        }
+    </script>
+<div id="top_container_spacing"></div>
+
+<div id="main-container">
+
+    
+        <div id="action-bar-top" class="action-bar mobile-off">
+
+        <div class="action-bar-right">
+            <p>Follow TV Tropes</p>
+            <a href="https://www.facebook.com/TVTropes" class="button-fb">
+                <i class="fa fa-facebook"></i></a>
+            <a href="https://www.twitter.com/TVTropes" class="button-tw">
+                <i class="fa fa-twitter"></i></a>
+        </div>
+
+                <nav class="actions-wrapper" itemscope itemtype="http://schema.org/SiteNavigationElement">
+            <ul id="top_main_list" class="page-actions">
+            <li class="link-edit">
+                    <a rel = "nofollow" class = "article-edit-button"data-modal-target= "login"href = "/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck?action=edit">
+                         <i class="fa fa-pencil"></i> Edit Page</a></li><li class="link-related"><a href="/pmwiki/relatedsearch.php?term=WesternAnimation/DaisyDuck">
+                <i class="fa fa-share-alt"></i> Related</a></li><li class="link-history"><a href="/pmwiki/article_history.php?article=WesternAnimation.DaisyDuck" data-modal-target="login" rel="nofollow">
+                <i class="fa fa-history"></i> History</a></li><li class="link-reviews"><a href="/pmwiki/review_add.php?tt=DaisyDuck&g=WesternAnimation" data-modal-target="login" rel="nofollow">
+                      <i class="fa fa-star-half-o"></i> Add Review</a></li><li class="link-discussion"><a href="/pmwiki/remarks.php?trope=WesternAnimation.DaisyDuck" data-modal-target="login" rel="nofollow">
+                                        <i class="fa fa-comment"></i> Discussion</a></li>                </ul>
+                                    <button id="top_more_button" onclick="toggle_more_menu('top');" type="button" class="nav__dropdown-toggle">More</button>
+                            <ul id="top_more_list" class="more_menu hidden_more_list">
+                <li class="link-todo tuck-always more_list_item"><a href="#todo" data-modal-target="login" rel="nofollow"><i class="fa fa-check-circle"></i> To Do</a></li><li class="link-pageSource tuck-always more_list_item"><a href="/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck?action=source" target="_blank" rel="nofollow"data-modal-target= "login"><i class="fa fa-code"></i> Page Source</a></li>            </ul>
+        </nav> 
+
+        <div class="WikiWordModalStub"></div>
+        <div class="ImgUploadModalStub" data-page-type="Article"></div>
+
+        <div class="login-alert" style="display: none;">
+            You need to <a href="/pmwiki/login.php" style="color:#21A0E8">login</a> to do this. <a href="/pmwiki/login.php?tab=register_account" style="color:#21A0E8">Get Known</a> if you don't have an account
+        </div>
+
+    </div>
+    
+    <div id="main-content" class="page-Article ">
+
+        
+                <article id="main-entry" class="with-sidebar">
+        
+        
+<!-- HIDDEN INPUTS FOR JS -->
+<input type="hidden" id="groupname-hidden" value="WesternAnimation"/>
+<input type="hidden" id="title-hidden" value="DaisyDuck"/>
+<input type="hidden" id="article_id" value="637799" />
+<input type="hidden" id="logged_in" value="false" />
+<p id="current_url" class="hidden">http://tvtropes.org/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck</p>
+
+    <meta itemprop="datePublished" content=""/>
+    <meta itemprop="articleSection" content="" />
+    <meta itemprop="image" content="">
+
+
+
+
+
+
+
+
+
+<style>
+.ad-caption-subscribe-wrapper {
+    text-align: center;
+    padding: 8px 0;
+            margin-top: -40px;
+        display: none;
+}
+
+@media (max-width: 768px) {
+    .ad-caption-subscribe-wrapper {
+        display: block;
+    }
+}
+
+.ad-caption-subscribe:hover {
+    text-decoration: underline;
+}
+
+.thumb-button.up.heart-only .fa-heart-o {
+    color: black;
+    transition: color 0.2s ease;
+}
+
+.thumb-button.up.heart-only .fa-heart-o.selected {
+    color: #008fec;
+}
+
+</style>
+
+
+
+        
+
+    
+
+             
+
+                                        <span class="wrapped_title">
+                                        <h1 itemprop="headline" class="entry-title">
+                        <div class="wrap-entry-breadcrumb" style="display:flex; flex-wrap:wrap; align-items:center;">
+                            <strong>
+                                <span class="ns_parts" style="display:none;">
+                                    <span class="group_display">Western Animation</span>
+                                    <span class="ns_slash"> / </span>
+                                </span>
+                                Daisy Duck                            </strong>
+                                                                                </div>
+                        <div class="watch_rank_wrap">
+                    <span 
+            class="thumb-vote-area"
+            data-seq-num="DaisyDuck"
+            data-discussion-id="DaisyDuck"
+            data-subject-trope="WesternAnimation.DaisyDuck"
+            data-page-type="article"
+        >
+            <a 
+                href="javascript:void(0);" 
+                class="thumb-button up heart-only"
+                data-modal-target="login"            >
+                <span class="thumb-count up-count" style="margin-top: 2px;margin-right: 1px;">5</span>
+                <i class="fa fa-heart-o"></i>
+            </a>
+        </span>
+        <a href="#watch" class="watch-button " data-modal-target="login" >Follow<span>ing</span></a>
+</div>
+                    </h1>
+                </span>
+
+            
+
+
+    
+
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "TV Tropes",
+                "item": "https://tvtropes.org/"
+            },{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Daisy Duck (Western Animation)",
+                "item": "https://tvtropes.org/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck"
+            }]
+
+        }
+    </script>
+        <script type="application/ld+json">
+                {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "name": "Daisy Duck (Western Animation)",
+          "headline": "Daisy Duck (Western Animation)",
+          "url": "https://tvtropes.org/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck",
+          "image": "https://static.tvtropes.org/pmwiki/pub/images/daisy_duck_transparent.png",
+          "author": {
+            "@type": "Organization",
+            "name": "Contributors to TV Tropes (aka Tropers)"
+          },
+          "datePublished": "2018-03-25T00:00:00-07:00",
+          "dateModified": "2026-08-03T03:08:57-07:00"
+        }
+    </script>
+
+
+<a href="#mobile-actions-toggle" id="mobile-actionbar-toggle" class="mobile-actionbar-toggle mobile-on" data-click-toggle="active" >
+<p class="tiny-off">Go To</p><span></span><span></span><span></span><i class="fa fa-pencil"></i></a>
+<nav id="mobile-actions-bar" class="mobile-actions-wrapper mobile-on"></nav>
+<script>
+    //duplicate action bar to the mobile-action-bar holder
+    if (document.getElementById("mobile-actions-bar")) {
+        // Clone the main list
+        var top_main_list = document.getElementById('top_main_list');
+        var top_main_list_cln = top_main_list.cloneNode(true);
+        // Clone the more list
+        var top_more_list = document.getElementById('top_more_list');
+        var top_more_list_cln = top_more_list.cloneNode(true);
+
+        top_more_list_cln.querySelectorAll("li").forEach(function(child){
+            top_main_list_cln.appendChild(child);
+        });
+
+        document.getElementById("mobile-actions-bar").appendChild(top_main_list_cln);
+    }
+</script>
+
+
+<nav class="body-options" itemscope itemtype="http://schema.org/SiteNavigationElement">
+
+    <ul class="subpage-links">
+
+                            <li>
+                <a href="/pmwiki/pmwiki.php/WesternAnimation/DaisyDuck"
+                class="subpage-link curr-subpage"
+                title="The WesternAnimation page">
+                    <span class="wrapper">
+                        <span class="spi westernanimation"></span>                        WesternAnimati&#8230;                    </span>
+                </a>
+            </li>
+        
+        
+                                 
+                                <li>
+                    <a href="/pmwiki/pmwiki.php/Laconic/DaisyDuck" class="subpage-link " title="The Laconic page">
+                    <span class="wrapper"><span class="spi laconic-icon"></span>Laconic</span></a>
+                </li>
+                            
+                                 
+                                <li>
+                    <a href="/pmwiki/pmwiki.php/Trivia/DaisyDuck" class="subpage-link " title="The Trivia page">
+                    <span class="wrapper"><span class="spi trivia"></span>Trivia</span></a>
+                </li>
+                            
+                
+                                 
+                                <li>
+                    <a href="/pmwiki/pmwiki.php/YMMV/DaisyDuck" class="subpage-link " title="The YMMV page">
+                    <span class="wrapper"><span class="spi ymmv"></span>YMMV</span></a>
+                </li>
+                            
+                
+
+                            <li class="create-subpage dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="wrapper">Create Subpage <i class="fa fa-plus-circle"></i></span>
+                    </a>
+
+
+                    <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                        <option value="">- Create New -</option>
+
+                                                <option value="/pmwiki/pmwiki.php/Analysis/DaisyDuck?action=edit">Analysis</option>
+                                                <option value="/pmwiki/pmwiki.php/Archive/DaisyDuck?action=edit">Archive</option>
+                                                <option value="/pmwiki/pmwiki.php/Awesome/DaisyDuck?action=edit">Awesome</option>
+                                                <option value="/pmwiki/pmwiki.php/Characters/DaisyDuck?action=edit">Characters</option>
+                                                <option value="/pmwiki/pmwiki.php/DerivativeWorks/DaisyDuck?action=edit">DerivativeWork&#8230;</option>
+                                                <option value="/pmwiki/pmwiki.php/FanficRecs/DaisyDuck?action=edit">FanficRecs</option>
+                                                <option value="/pmwiki/pmwiki.php/FanWorks/DaisyDuck?action=edit">FanWorks</option>
+                                                <option value="/pmwiki/pmwiki.php/Fridge/DaisyDuck?action=edit">Fridge</option>
+                                                <option value="/pmwiki/pmwiki.php/Funny/DaisyDuck?action=edit">Funny</option>
+                                                <option value="/pmwiki/pmwiki.php/Haiku/DaisyDuck?action=edit">Haiku</option>
+                                                <option value="/pmwiki/pmwiki.php/Headscratchers/DaisyDuck?action=edit">Headscratchers</option>
+                                                <option value="/pmwiki/pmwiki.php/Heartwarming/DaisyDuck?action=edit">Heartwarming</option>
+                                                <option value="/pmwiki/pmwiki.php/ImageLinks/DaisyDuck?action=edit">ImageLinks</option>
+                                                <option value="/pmwiki/pmwiki.php/ImageSource/DaisyDuck?action=edit">ImageSource</option>
+                                                <option value="/pmwiki/pmwiki.php/MediaNotes/DaisyDuck?action=edit">MediaNotes</option>
+                                                <option value="/pmwiki/pmwiki.php/Newsletter/DaisyDuck?action=edit">Newsletter</option>
+                                                <option value="/pmwiki/pmwiki.php/NightmareFuel/DaisyDuck?action=edit">NightmareFuel</option>
+                                                <option value="/pmwiki/pmwiki.php/PlayingWith/DaisyDuck?action=edit">PlayingWith</option>
+                                                <option value="/pmwiki/pmwiki.php/Quotes/DaisyDuck?action=edit">Quotes</option>
+                                                <option value="/pmwiki/pmwiki.php/QuoteSource/DaisyDuck?action=edit">QuoteSource</option>
+                                                <option value="/pmwiki/pmwiki.php/Recap/DaisyDuck?action=edit">Recap</option>
+                                                <option value="/pmwiki/pmwiki.php/ReferencedBy/DaisyDuck?action=edit">ReferencedBy</option>
+                                                <option value="/pmwiki/pmwiki.php/Shocking/DaisyDuck?action=edit">Shocking</option>
+                                                <option value="/pmwiki/pmwiki.php/TearJerker/DaisyDuck?action=edit">TearJerker</option>
+                                                <option value="/pmwiki/pmwiki.php/Timeline/DaisyDuck?action=edit">Timeline</option>
+                                                <option value="/pmwiki/pmwiki.php/WMG/DaisyDuck?action=edit">WMG</option>
+                        
+                    </select>
+
+                    
+                            </li>
+        
+            </ul>
+
+
+</nav>
+
+
+
+<div id="main-article" class="article-content retro-folders">
+
+
+
+        
+            <p><div class="quoteright" style="width:271px;" ><div class="lazy_load_img_box" style="padding-top:184.13%"><img src='https://static.tvtropes.org/pmwiki/pub/images/daisy_duck_transparent.png' class='embeddedimage' border='0' alt='Daisy Duck (Western Animation)'  width=271 height=499></div></div><div class="acaptionright" style="width:271px;" ><em>"<a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL01pY2tleU1vdXNlQ2x1YmhvdXNlIE9oLCBnb29keS1nb29keSFdXQ=='>Oh, goody-goody!</a>"</em></div>Daisy Duck is the girlfriend of <a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck' title='/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck' data-format='V2VzdGVybkFuaW1hdGlvbi9Eb25hbGREdWNr'>Donald Duck</a>, best friend of <a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MinnieMouse' title='/pmwiki/pmwiki.php/WesternAnimation/MinnieMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9NaW5uaWVNb3VzZQ=='>Minnie Mouse</a>, and is a recurring character in Disney media. She first appeared in the 1940 short <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MrDuckStepsOut' title='/pmwiki/pmwiki.php/WesternAnimation/MrDuckStepsOut' data-format='V2VzdGVybkFuaW1hdGlvbi9NckR1Y2tTdGVwc091dA=='>Mr. Duck Steps Out</a></em>. She was preceded by Donna Duck in <em>Don Donald</em>, but they usually aren't considered the same character.</p><p>Unlike most of her castmates, the specifics of Daisy's personality differ from work to work; however, her core is usually the same. Though she loves her boyfriend Donald, Daisy is well-aware of his flaws and vices. Daisy is constantly arguing with Donald and frequently tries to fix his flaws. Though she'll often berate Donald for his tantrums, Daisy is just as much a hothead as he is. Daisy serves as a <a class='twikilink' href='/pmwiki/pmwiki.php/Main/Foil' title='/pmwiki/pmwiki.php/Main/Foil' data-format='e3tmb2lsfX0='>foil</a> to Minnie. While Minnie is demure and prefers to dress simple, Daisy is very outspoken and fashion-savvy. Minnie and Daisy get along for the most part, but Daisy's bombastic personality can make her an annoyance.</p><p>It's said that Donald needs a girl like Daisy to keep him on the straight and narrow. Nobody but the fiery Daisy would be so unfazed by his outbursts - and nobody but Donald would put up with Daisy's own hot temper! For all their arguments, they adore each other. Donald will do anything to please Daisy, and Daisy sees the determination and kindness underneath his childish tantrums.</p><p>Daisy appeared sparingly throughout the 1940s, although in 1947 she was the protagonist of <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DonaldsDilemma' title='/pmwiki/pmwiki.php/WesternAnimation/DonaldsDilemma' data-format='V2VzdGVybkFuaW1hdGlvbi9Eb25hbGRzRGlsZW1tYQ=='>Donald's Dilemma</a></em>. Daisy had several more appearances until the mid-50s. She was retired (in theatrical form at least) until she was revived in the '80s. Since then, Daisy Duck has become a core member of the <a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/ClassicDisneyShorts' title='/pmwiki/pmwiki.php/WesternAnimation/ClassicDisneyShorts' data-format='V2VzdGVybkFuaW1hdGlvbi9DbGFzc2ljRGlzbmV5U2hvcnRz'>Classic Disney Shorts</a> cast.</p><p>Her current official voice actress is <a class='twikilink' href='/pmwiki/pmwiki.php/Creator/TressMacNeille' title='/pmwiki/pmwiki.php/Creator/TressMacNeille' data-format='Q3JlYXRvci9UcmVzc01hY05laWxsZQ=='>Tress MacNeille</a>, who is also the official voice of <a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/ChipAndDale' title='/pmwiki/pmwiki.php/WesternAnimation/ChipAndDale' data-format='V2VzdGVybkFuaW1hdGlvbi97e0NoaXB8QW5kRGFsZX19'>Chip</a>. However, in some projects, such as season two of <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseFunhouse' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseFunhouse' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZUZ1bmhvdXNl'>Mickey Mouse Funhouse</a></em>, <a class='twikilink' href='/pmwiki/pmwiki.php/Creator/DebraWilson' title='/pmwiki/pmwiki.php/Creator/DebraWilson' data-format='Q3JlYXRvci9EZWJyYVdpbHNvbg=='>Debra Wilson</a> voices the character, making her the first Black performer to voice any of Disney's "Sensational Six" characters. This is due to <span class='esc-seq' title='non-wikiword'>MacNeille</span> being too busy with other projects; she otherwise continues to voice Daisy in most other Disney media.</p><p><div class="folderlabel" onclick="togglefolder('folder0');">&nbsp;&nbsp;&nbsp;&nbsp;Media featuring Daisy&nbsp;</div><div id="folder0" class="folder" isfolder="true" style="display:block;"><h2>Classic Shorts</h2><ul ><li> <em>Don Donald</em> (1937)<span class="notelabel" onclick="togglenote('note0qtwo');"><sup>note&nbsp;</sup></span><span id="note0qtwo" class="inlinefolder" isnote="true" onclick="togglenote('note0qtwo');" style="cursor:pointer;font-size:smaller;display:none;">Considering this as Daisy's official debut may be a little <img src="/images/article-hreficon-ymmv.png" class="ymmv1 rounded" title="This example contains a YMMV entry. It should be moved to the YMMV tab."><a class='twikilink' href='/pmwiki/pmwiki.php/Main/BrokenBase' title='/pmwiki/pmwiki.php/Main/BrokenBase' data-format='W1tCcm9rZW5CYXNlIGNvbnRyb3ZlcnNpYWxdXQ=='>controversial</a> for some circles, since Donna and Daisy are considered separate characters in some media such as the comics. However, the Walt Disney Company does consider this short to be the debut of Daisy according to printed media, merchandise, and video collections.</span></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MrDuckStepsOut' title='/pmwiki/pmwiki.php/WesternAnimation/MrDuckStepsOut' data-format='V2VzdGVybkFuaW1hdGlvbi9NckR1Y2tTdGVwc091dA=='>Mr. Duck Steps Out</a></em> (1940): The first cartoon to have Daisy appear in her standard design, and the first time she is named as such.</li><li> <em>A Good Time for a Dime</em> (1941)</li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/TheNiftyNineties' title='/pmwiki/pmwiki.php/WesternAnimation/TheNiftyNineties' data-format='V2VzdGVybkFuaW1hdGlvbi9UaGVOaWZ0eU5pbmV0aWVz'>The Nifty Nineties</a></em> (1941): First and only appearance of Daisy in a Mickey Mouse short.</li><li> <em>Donald's Crime</em> (1945): First cartoon to have Daisy with a normal voice, provided by Gloria Blondell.</li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/CuredDuck' title='/pmwiki/pmwiki.php/WesternAnimation/CuredDuck' data-format='V2VzdGVybkFuaW1hdGlvbi9DdXJlZER1Y2s='>Cured Duck</a></em> (1945)</li><li> <em>Donald's Double Trouble</em> (1946)</li><li> <em>Dumb Bell of the Yukon</em> (1946)</li><li> <em>Sleepy Time Donald</em> (1947): First cartoon to have Daisy in more of a leading role.</li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DonaldsDilemma' title='/pmwiki/pmwiki.php/WesternAnimation/DonaldsDilemma' data-format='V2VzdGVybkFuaW1hdGlvbi9Eb25hbGRzRGlsZW1tYQ=='>Donald's Dilemma</a></em> (1947): A fairly dark cartoon in Daisy's filmography as it sees Daisy suffer numerous physical and mental health disorders.</li><li> <em>Donald's Dream Voice</em> (1948)</li><li> <em>Crazy for Daisy</em> (1950)</li><li> <em>Donald's Diary</em> (1954): Final appearance of Daisy in the Donald Duck shorts.</li><li> <em>How to Have an Accident at Work</em> (1959): Final appearance of Daisy in the classic shorts.</li></ul></p><p><h2>Comic Books:</h2><ul ><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/ComicBook/DisneyDucksComicUniverse' title='/pmwiki/pmwiki.php/ComicBook/DisneyDucksComicUniverse' data-format='Q29taWNCb29rL0Rpc25leUR1Y2tzQ29taWNVbml2ZXJzZQ=='>Disney Ducks Comic Universe</a></em></li></ul></p><p><h2>Feature Films:</h2><ul ><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeysChristmasCarol' title='/pmwiki/pmwiki.php/WesternAnimation/MickeysChristmasCarol' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlzQ2hyaXN0bWFzQ2Fyb2w='>Mickey's Christmas Carol</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/Fantasia2000' title='/pmwiki/pmwiki.php/WesternAnimation/Fantasia2000' data-format='V2VzdGVybkFuaW1hdGlvbi9GYW50YXNpYTIwMDA='>Fantasia 2000</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeysOnceUponAChristmas' title='/pmwiki/pmwiki.php/WesternAnimation/MickeysOnceUponAChristmas' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlzT25jZVVwb25BQ2hyaXN0bWFz'>Mickey's Once Upon a Christmas</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyDonaldGoofyTheThreeMusketeers' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyDonaldGoofyTheThreeMusketeers' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlEb25hbGRHb29meVRoZVRocmVlTXVza2V0ZWVycw=='>Mickey, Donald, Goofy: The Three Musketeers</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeysTwiceUponAChristmas' title='/pmwiki/pmwiki.php/WesternAnimation/MickeysTwiceUponAChristmas' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlzVHdpY2VVcG9uQUNocmlzdG1hcw=='>Mickey's Twice Upon a Christmas</a></em></li></ul></p><p><h2>Television Series:</h2><ul ><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' title='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' data-format='V2VzdGVybkFuaW1hdGlvbi9RdWFja1BhY2s='>Quack Pack</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9Ib3VzZU9mTW91c2U='>House of Mouse</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZUNsdWJob3VzZQ=='>Mickey Mouse Clubhouse</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MinniesBowToons' title='/pmwiki/pmwiki.php/WesternAnimation/MinniesBowToons' data-format='V2VzdGVybkFuaW1hdGlvbi9NaW5uaWVzQm93VG9vbnM='>Minnie's Bow-Toons</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouse2013' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouse2013' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZTIwMTM='>Mickey Mouse (2013)</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyAndTheRoadsterRacers' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyAndTheRoadsterRacers' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlBbmRUaGVSb2Fkc3RlclJhY2Vycw=='>Mickey and the Roadster Racers</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/LegendOfTheThreeCaballeros' title='/pmwiki/pmwiki.php/WesternAnimation/LegendOfTheThreeCaballeros' data-format='V2VzdGVybkFuaW1hdGlvbi9MZWdlbmRPZlRoZVRocmVlQ2FiYWxsZXJvcw=='>Legend of the Three Caballeros</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='V2VzdGVybkFuaW1hdGlvbi9EdWNrVGFsZXMyMDE3'>DuckTales (2017)</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseFunhouse' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseFunhouse' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZUZ1bmhvdXNl'>Mickey Mouse Funhouse</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhousePlus' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhousePlus' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZUNsdWJob3VzZVBsdXM='>Mickey Mouse Clubhouse+</a></em></li></ul></p><p><h2>Video Games</h2><ul ><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneyEmojiBlitz' title='/pmwiki/pmwiki.php/VideoGame/DisneyEmojiBlitz' data-format='VmlkZW9HYW1lL0Rpc25leUVtb2ppQmxpdHo='>Disney Emoji Blitz</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneyHeroesBattleMode' title='/pmwiki/pmwiki.php/VideoGame/DisneyHeroesBattleMode' data-format='VmlkZW9HYW1lL0Rpc25leUhlcm9lc0JhdHRsZU1vZGU='>Disney Heroes: Battle Mode</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneyMagicalWorld' title='/pmwiki/pmwiki.php/VideoGame/DisneyMagicalWorld' data-format='VmlkZW9HYW1lL0Rpc25leU1hZ2ljYWxXb3JsZA=='>Disney Magical World</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneyMagicKingdoms' title='/pmwiki/pmwiki.php/VideoGame/DisneyMagicKingdoms' data-format='VmlkZW9HYW1lL0Rpc25leU1hZ2ljS2luZ2RvbXM='>Disney Magic Kingdoms</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneySorcerersArena' title='/pmwiki/pmwiki.php/VideoGame/DisneySorcerersArena' data-format='VmlkZW9HYW1lL0Rpc25leVNvcmNlcmVyc0FyZW5h'>Disney Sorcerer's Arena</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneySpeedstorm' title='/pmwiki/pmwiki.php/VideoGame/DisneySpeedstorm' data-format='VmlkZW9HYW1lL0Rpc25leVNwZWVkc3Rvcm0='>Disney Speedstorm</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneyDreamlightValley' title='/pmwiki/pmwiki.php/VideoGame/DisneyDreamlightValley' data-format='VmlkZW9HYW1lL0Rpc25leURyZWFtbGlnaHRWYWxsZXk='>Disney Dreamlight Valley</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DisneyTsumTsum' title='/pmwiki/pmwiki.php/VideoGame/DisneyTsumTsum' data-format='VmlkZW9HYW1lL0Rpc25leVRzdW1Uc3Vt'>Disney Tsum Tsum</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/DonaldDuckGoinQuackers' title='/pmwiki/pmwiki.php/VideoGame/DonaldDuckGoinQuackers' data-format='VmlkZW9HYW1lL0RvbmFsZER1Y2tHb2luUXVhY2tlcnM='>Donald Duck: Goin' Qu@ckers</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/EpicMickey' title='/pmwiki/pmwiki.php/VideoGame/EpicMickey' data-format='VmlkZW9HYW1lL0VwaWNNaWNrZXk='>Epic Mickey</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/VideoGame/KinectDisneylandAdventures' title='/pmwiki/pmwiki.php/VideoGame/KinectDisneylandAdventures' data-format='VmlkZW9HYW1lL0tpbmVjdERpc25leWxhbmRBZHZlbnR1cmVz'>Kinect: Disneyland Adventures</a></em></li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/Franchise/KingdomHearts' title='/pmwiki/pmwiki.php/Franchise/KingdomHearts' data-format='RnJhbmNoaXNlL0tpbmdkb21IZWFydHM='>Kingdom Hearts</a></em></li></ul></div></p><p><hr data-format='&#8212;&#8212;-' /><h2>Tropes that apply to Daisy:</h2></p><p><ul ><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/AdaptationalCurves' title='/pmwiki/pmwiki.php/Main/AdaptationalCurves' data-format='QWRhcHRhdGlvbmFsQ3VydmVz'>Adaptational Curves</a>: Was depicted as <em>very</em> shapely in 1996's <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' title='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL1F1YWNrUGFjayAfIx9dXQ=='>[1]</a></em>.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/AdaptationalDumbass' title='/pmwiki/pmwiki.php/Main/AdaptationalDumbass' data-format='QWRhcHRhdGlvbmFsRHVtYmFzcw=='>Adaptational Dumbass</a>: Generally she's depicted as one of the more intelligent members of the Mickey Mouse cast, but her appearance in <em>Legend of the Three Caballeros</em> knocked her intelligence and awareness down a few pegs.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/AdaptationalJerkass' title='/pmwiki/pmwiki.php/Main/AdaptationalJerkass' data-format='QWRhcHRhdGlvbmFsSmVya2Fzcw=='>Adaptational Jerkass</a>: In media such as <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL0hvdXNlT2ZNb3VzZSBNaWNrZXkgTW91c2UgV29ya3MsIEhvdXNlIE9mIE1vdXNlXV0='>Mickey Mouse Works, House Of Mouse</a></em>, <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeysTwiceUponAChristmas' title='/pmwiki/pmwiki.php/WesternAnimation/MickeysTwiceUponAChristmas' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlzVHdpY2VVcG9uQUNocmlzdG1hcw=='>Mickey's Twice Upon a Christmas</a></em>, and <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/LegendOfTheThreeCaballeros' title='/pmwiki/pmwiki.php/WesternAnimation/LegendOfTheThreeCaballeros' data-format='V2VzdGVybkFuaW1hdGlvbi9MZWdlbmRPZlRoZVRocmVlQ2FiYWxsZXJvcw=='>Legend of the Three Caballeros</a></em>, she has shown to be more abusive, spoiled, and self-centered, as opposed to her more gentle, mature and kind side.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/AdaptationalNiceGuy' title='/pmwiki/pmwiki.php/Main/AdaptationalNiceGuy' data-format='QWRhcHRhdGlvbmFsTmljZUd1eQ=='>Adaptational Nice Guy</a>: In <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='V2VzdGVybkFuaW1hdGlvbi9EdWNrVGFsZXMyMDE3'>DuckTales (2017)</a></em>, she is shown to be gentle, kinder, and understanding, even to Donald.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/AscendedExtra' title='/pmwiki/pmwiki.php/Main/AscendedExtra' data-format='QXNjZW5kZWRFeHRyYQ=='>Ascended Extra</a>: Curiously, for a character considered a major Disney star, Daisy only appeared in 16 of the classic theatrical shorts. She had a much bigger role in comics, and eventually got bumped up to be a recurring star in modern shorts and features.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/AlliterativeName' title='/pmwiki/pmwiki.php/Main/AlliterativeName' data-format='QWxsaXRlcmF0aXZlTmFtZQ=='>Alliterative Name</a>: <strong>D</strong>aisy <strong>D</strong>uck.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/BowsForCuteness' title='/pmwiki/pmwiki.php/Main/BowsForCuteness' data-format='Qm93c0ZvckN1dGVuZXNz'>Bows for Cuteness</a>: Like her friend <a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MinnieMouse' title='/pmwiki/pmwiki.php/WesternAnimation/MinnieMouse' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL01pbm5pZU1vdXNlIE1pbm5pZV1d'>Minnie</a>, Daisy wears a bow on her head, since she's a girly diva. Her bow changes colour often; for instance, it's blue in <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9Ib3VzZU9mTW91c2U='>House of Mouse</a></em>, purple in <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZUNsdWJob3VzZQ=='>Mickey Mouse Clubhouse</a></em>, and pink in <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouse2013' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouse2013' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZTIwMTM='>Mickey Mouse (2013)</a></em> as well as the image of her above.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/BroodingBoyGentleGirl' title='/pmwiki/pmwiki.php/Main/BroodingBoyGentleGirl' data-format='QnJvb2RpbmdCb3lHZW50bGVHaXJs'>Brooding Boy, Gentle Girl</a>: The Gentle Girl to Donald's Brooding Boy - well, sometimes. She's usually level-headed and calm while Donald is temperamental, grumpy and rude - but it's been zig-zagged on quite a few occasions, since she blows up plenty of times on Donald himself.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TheBusCameBack' title='/pmwiki/pmwiki.php/Main/TheBusCameBack' data-format='VGhlQnVzQ2FtZUJhY2s='>The Bus Came Back</a>: She didn't have any animated appearances between 1954's <em>Donald's Diary</em> short and 1983's <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeysChristmasCarol' title='/pmwiki/pmwiki.php/WesternAnimation/MickeysChristmasCarol' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlzQ2hyaXN0bWFzQ2Fyb2w='>Mickey's Christmas Carol</a></em> film.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/ChasteToons' title='/pmwiki/pmwiki.php/Main/ChasteToons' data-format='Q2hhc3RlVG9vbnM='>Chaste Toons</a>: She has nieces&#8212;April, May, and June&#8212;in the comics.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/DependingOnTheArtist' title='/pmwiki/pmwiki.php/Main/DependingOnTheArtist' data-format='RGVwZW5kaW5nT25UaGVBcnRpc3Q='>Depending on the Artist</a>: Out of all the Sensational Six Disney characters, Daisy's design changes the most. Does she have hair or feathers? How are her feathers stylized? These changes can range from minor, such as adding boots to her standard design in the 2013 <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouse2013' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouse2013' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZTIwMTM='>Mickey Mouse (2013)</a></em> cartoons, to a complete design overhaul in <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9Ib3VzZU9mTW91c2U='>House of Mouse</a></em>.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/DependingOnTheWriter' title='/pmwiki/pmwiki.php/Main/DependingOnTheWriter' data-format='RGVwZW5kaW5nT25UaGVXcml0ZXI='>Depending on the Writer</a>: Daisy's personality and voice have changed with nearly every new title released after the original shorts. The only real constant is that she's a bit of a <a class='twikilink' href='/pmwiki/pmwiki.php/Main/Tsundere' title='/pmwiki/pmwiki.php/Main/Tsundere' data-format='e3tUc3VuZGVyZX19'>Tsundere</a> and her love of Donald.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/DistaffCounterpart' title='/pmwiki/pmwiki.php/Main/DistaffCounterpart' data-format='RGlzdGFmZkNvdW50ZXJwYXJ0'>Distaff Counterpart</a>: Though arguably, she has a few unique personality traits, and is more different from Donald than Minnie is from Mickey. As mentioned previously, given how much her personality changes between appearances, she qualifies in some more than others.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/DivergentCharacterEvolution' title='/pmwiki/pmwiki.php/Main/DivergentCharacterEvolution' data-format='RGl2ZXJnZW50Q2hhcmFjdGVyRXZvbHV0aW9u'>Divergent Character Evolution</a>:<ul ><li> While Donna Duck from "Don Donald" is considered to be the prototype of Daisy, one comic strip established that she and Daisy are two separate characters.</li><li> Daisy started out as a more level-headed Donald, but eventually other aspects of her, such as her being a fashionista and her <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GenkiGirl' title='/pmwiki/pmwiki.php/Main/GenkiGirl' data-format='R2Vua2lHaXJs'>Genki Girl</a> qualities, began appearing.</li></ul></li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TheFashionista' title='/pmwiki/pmwiki.php/Main/TheFashionista' data-format='VGhlRmFzaGlvbmlzdGE='>The Fashionista</a>: Daisy is shown to like clothes and is fashion-savvy.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/FeetFirstIntroduction' title='/pmwiki/pmwiki.php/Main/FeetFirstIntroduction' data-format='RmVldEZpcnN0SW50cm9kdWN0aW9u'>Feet-First Introduction</a>: In <em><a class='twikilink' href='/pmwiki/pmwiki.php/Recap/DuckTales2017S3E5LouiesEleven' title='/pmwiki/pmwiki.php/Recap/DuckTales2017S3E5LouiesEleven' data-format='W1tSZWNhcC9EdWNrVGFsZXMyMDE3UzNFNUxvdWllc0VsZXZlbiBMb3VpZSYjMDM5O3MgRWxldmVuXV0='>Louie's Eleven</a></em> from <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL0R1Y2tUYWxlczIwMTcgRHVja1RhbGVzXV0='>DuckTales</a></em>, as soon as she descends a couple of stairs, we first get to see a clear view of her high heels, as well as the lower half of her body.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/FunnyAnimal' title='/pmwiki/pmwiki.php/Main/FunnyAnimal' data-format='RnVubnlBbmltYWw='>Funny Animal</a>: Daisy is an anthropomorphic duck.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/FurryFemaleMane' title='/pmwiki/pmwiki.php/Main/FurryFemaleMane' data-format='RnVycnlGZW1hbGVNYW5l'>Furry Female Mane</a>: Daisy usually averts this trope. She usually has feathered stylized as "hair". However, in some appearances, such as <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9Ib3VzZU9mTW91c2U='>House of Mouse</a></em> and the preschool shows, she has a white ponytail that meshes with her feathers. In <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyDonaldGoofyTheThreeMusketeers' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyDonaldGoofyTheThreeMusketeers' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlEb25hbGRHb29meVRoZVRocmVlTXVza2V0ZWVycw=='>Mickey, Donald, Goofy: The Three Musketeers</a></em> she outright has blonde hair.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GirlyGirlWithATomboyStreak' title='/pmwiki/pmwiki.php/Main/GirlyGirlWithATomboyStreak' data-format='R2lybHlHaXJsV2l0aEFUb21ib3lTdHJlYWs='>Girly Girl with a Tomboy Streak</a>: Daisy usually dresses in hairbows, high heels and feminine colors like <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GracefulLadiesLikePurple' title='/pmwiki/pmwiki.php/Main/GracefulLadiesLikePurple' data-format='W1tHcmFjZWZ1bExhZGllc0xpa2VQdXJwbGUgcHVycGxlXV0='>purple</a> and <a class='twikilink' href='/pmwiki/pmwiki.php/Main/PinkMeansFeminine' title='/pmwiki/pmwiki.php/Main/PinkMeansFeminine' data-format='W1tQaW5rTWVhbnNGZW1pbmluZSBwaW5rXV0='>pink</a>, is very sophisticated and is fashion-conscious. But many depictions (especially in the modern day) show her to be loud, rough and lively by comparison to the very sweet and demure Minnie, and she sometimes even wears a ponytail.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GracefulLadiesLikePurple' title='/pmwiki/pmwiki.php/Main/GracefulLadiesLikePurple' data-format='R3JhY2VmdWxMYWRpZXNMaWtlUHVycGxl'>Graceful Ladies Like Purple</a>: One of her two default colors is purple. She's more sophisticated than many of the other characters.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GreenEyedMonster' title='/pmwiki/pmwiki.php/Main/GreenEyedMonster' data-format='R3JlZW5FeWVkTW9uc3Rlcg=='>Green-Eyed Monster</a>: A reoccurring theme of her character is that she gets jealous easily.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HairTriggerTemper' title='/pmwiki/pmwiki.php/Main/HairTriggerTemper' data-format='SGFpclRyaWdnZXJUZW1wZXI='>Hair-Trigger Temper</a>: While not as easily annoyed as her boyfriend, Daisy does have a mean temper in most incarnations. It's often used as a plot point to show that in spite of her frustrations with Donald's lack of self control, she's usually not any better.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HalfDressedCartoonAnimal' title='/pmwiki/pmwiki.php/Main/HalfDressedCartoonAnimal' data-format='SGFsZkRyZXNzZWRDYXJ0b29uQW5pbWFs'>Half-Dressed Cartoon Animal</a>: Her classic design is just a blouse and a bow on her head. Her feathers give the impression of a skirt. However, she does wear her high-heeled shoes unlike other ducks.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HeroicSeductress' title='/pmwiki/pmwiki.php/Main/HeroicSeductress' data-format='SGVyb2ljU2VkdWN0cmVzcw=='>Heroic Seductress</a>: In "Mr. Duck Steps Out" Daisy seduces Donald using her bottom by waving her tail in a "come here" gesture.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HonoraryAunt' title='/pmwiki/pmwiki.php/Main/HonoraryAunt' data-format='SG9ub3JhcnlBdW50'>Honorary Aunt</a>: She doesn't interact with Donald's nephews very often, but they tend to view her as this trope when they do and Daisy tends to appreciate the gesture.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HotBlooded' title='/pmwiki/pmwiki.php/Main/HotBlooded' data-format='SG90Qmxvb2RlZA=='>Hot-Blooded</a>: She is often presented this way.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HotterAndSexier' title='/pmwiki/pmwiki.php/Main/HotterAndSexier' data-format='SG90dGVyQW5kU2V4aWVy'>Hotter and Sexier</a>: She can be considered as this due to the upper half of her body structure being more feminine and attractive when compared to Minnie's simplistic body shape. It's justified since her lower half is shaped like a real duck's.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/IJustWantToBeSpecial' title='/pmwiki/pmwiki.php/Main/IJustWantToBeSpecial' data-format='SUp1c3RXYW50VG9CZVNwZWNpYWw='>I Just Want to Be Special</a>:<ul ><li> In <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9Ib3VzZU9mTW91c2U='>House of Mouse</a></em>, Daisy's plotlines often involve her trying to secure a spot on the titular show's lineup so she can give a stellar performance and become famous.</li><li> In <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL0R1Y2tUYWxlczIwMTcgRHVja1RhbGVzXV0='>DuckTales</a></em>, she admits that she dreams of being a professional designer and made a stellar dress in the hopes of impressing her boss so she can get on her exclusive "IT" list.</li></ul></li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/InformedAttractiveness' title='/pmwiki/pmwiki.php/Main/InformedAttractiveness' data-format='SW5mb3JtZWRBdHRyYWN0aXZlbmVzcw=='>Informed Attractiveness</a>: Mostly applied to Donald's Diary and <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' title='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' data-format='V2VzdGVybkFuaW1hdGlvbi9RdWFja1BhY2s='>Quack Pack</a></em>.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/JerkassBall' title='/pmwiki/pmwiki.php/Main/JerkassBall' data-format='SmVya2Fzc0JhbGw='>Jerkass Ball</a>:<ul ><li> There are times in <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' title='/pmwiki/pmwiki.php/WesternAnimation/HouseOfMouse' data-format='V2VzdGVybkFuaW1hdGlvbi9Ib3VzZU9mTW91c2U='>House of Mouse</a></em> and <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseWorks' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseWorks' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZVdvcmtz'>Mickey Mouse Works</a></em> when she's very inconsiderate. One cartoon has her inviting herself along on Mickey and Minnie's day out and causing nothing but trouble the entire way there.</li><li> <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/LegendOfTheThreeCaballeros' title='/pmwiki/pmwiki.php/WesternAnimation/LegendOfTheThreeCaballeros' data-format='V2VzdGVybkFuaW1hdGlvbi9MZWdlbmRPZlRoZVRocmVlQ2FiYWxsZXJvcw=='>Legend of the Three Caballeros</a></em> shows her at her worst. In the first episode, she breaks up with Donald when he's late to their date, after he loses his job and his home, on his birthday, no less. As if that wasn't enough, in episode 7, she brings over her new boyfriend to the Caballeros' cabana, just to spite Donald and make him jealous. She does get better at the end, though.</li></ul></li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/MsFanservice' title='/pmwiki/pmwiki.php/Main/MsFanservice' data-format='TXNGYW5zZXJ2aWNl'>Ms. Fanservice</a>: In the <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL0R1Y2tUYWxlczIwMTcgRHVja1RhbGVzXV0='>DuckTales</a></em> episode Louie's Eleven, at the part when she and Donald are trapped in the elevator and they end up getting tied themselves due to shakeups and her coat being stained by a drink, she took off her coat to reveal herself in a gorgeous dress that she made herself, which causes Donald to become overjoyed.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/NonMammalMammaries' title='/pmwiki/pmwiki.php/Main/NonMammalMammaries' data-format='Tm9uTWFtbWFsTWFtbWFyaWVz'>Non-Mammal Mammaries</a>: Though not to the extent of her <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/LooneyTunes' title='/pmwiki/pmwiki.php/WesternAnimation/LooneyTunes' data-format='V2VzdGVybkFuaW1hdGlvbi9Mb29uZXlUdW5lcw=='>Looney Tunes</a></em> counterpart Melissa Duck, in some of her appearances, such as <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' title='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL1F1YWNrUGFjayBRdWFjayBQYWNrXV0='>Quack Pack</a></em> and <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL0R1Y2tUYWxlczIwMTcgRHVja1RhbGVzXV0='>DuckTales</a></em>, she has a quite busty chest.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/OfficialCouple' title='/pmwiki/pmwiki.php/Main/OfficialCouple' data-format='T2ZmaWNpYWxDb3VwbGU='>Official Couple</a>: With <a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck' title='/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck' data-format='V2VzdGVybkFuaW1hdGlvbi9Eb25hbGREdWNr'>Donald Duck</a>. Unlike Minnie and Mickey, however, they're consistently depicted as dating (not confirmed to be married off-screen).</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/PantslessMalesFullyDressedFemales' title='/pmwiki/pmwiki.php/Main/PantslessMalesFullyDressedFemales' data-format='UGFudHNsZXNzTWFsZXNGdWxseURyZXNzZWRGZW1hbGVz'>Pantsless Males, Fully-Dressed Females</a>: Inverted with Goofy and occasionally played straight with Donald, as she is normally seen with no bottomwear of any kind, but there are some cases in which she can be seen wearing a dress.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/PinkMeansFeminine' title='/pmwiki/pmwiki.php/Main/PinkMeansFeminine' data-format='UGlua01lYW5zRmVtaW5pbmU='>Pink Means Feminine</a>: One of her default colors is pink, and Daisy is a <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GirlyGirl' title='/pmwiki/pmwiki.php/Main/GirlyGirl' data-format='R2lybHlHaXJs'>Girly Girl</a>.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/ReimaginingTheArtifact' title='/pmwiki/pmwiki.php/Main/ReimaginingTheArtifact' data-format='UmVpbWFnaW5pbmdUaGVBcnRpZmFjdA=='>Reimagining the Artifact</a>: Her portrayal in the <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' title='/pmwiki/pmwiki.php/WesternAnimation/DuckTales2017' data-format='W1tXZXN0ZXJuQW5pbWF0aW9uL0R1Y2tUYWxlczIwMTcgRHVja1RhbGVzXV0='>DuckTales</a></em> reboot is considered the most ideal version of her so far. In this version, she's very patient and gives Donald the benefit of the doubt about his friend <a class='twikilink' href='/pmwiki/pmwiki.php/Main/PalsWithJesus' title='/pmwiki/pmwiki.php/Main/PalsWithJesus' data-format='W1tQYWxzV2l0aEplc3VzIFN0b3JrdWxlc11d'>Storkules</a> invading their second date, but when she does finally lose patience and consider breaking up with him, it's over understandable grievances: she worries that she'll end up <a class='twikilink' href='/pmwiki/pmwiki.php/Main/ParentingTheHusband' title='/pmwiki/pmwiki.php/Main/ParentingTheHusband' data-format='UGFyZW50aW5nVGhlSHVzYmFuZA=='>Parenting the Husband</a> and have to teach Donald basic adult things like how to take out the trash or schedule dates around his <a class='twikilink' href='/pmwiki/pmwiki.php/Main/ManChild' title='/pmwiki/pmwiki.php/Main/ManChild' data-format='TWFuQ2hpbGQ='>Manchild</a> friend. However, she doesn't scold Donald or invoke a <a class='twikilink' href='/pmwiki/pmwiki.php/Main/MinorFlawMajorBreakup' title='/pmwiki/pmwiki.php/Main/MinorFlawMajorBreakup' data-format='TWlub3JGbGF3TWFqb3JCcmVha3Vw'>Minor Flaw, Major Breakup</a> like in most other versions. Here, she takes time to reevaluate their relationship and ultimately decides she's in it for the long haul.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/SatelliteCharacter' title='/pmwiki/pmwiki.php/Main/SatelliteCharacter' data-format='U2F0ZWxsaXRlQ2hhcmFjdGVy'>Satellite Character</a>: Even though she's more different from Donald than Minnie is from Mickey, she's rarely seen without him, or if not him, than with Minnie.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/ShakingTheRump' title='/pmwiki/pmwiki.php/Main/ShakingTheRump' data-format='U2hha2luZ1RoZVJ1bXA='>Shaking the Rump</a>: In the episode of <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' title='/pmwiki/pmwiki.php/WesternAnimation/MickeyMouseClubhouse' data-format='V2VzdGVybkFuaW1hdGlvbi9NaWNrZXlNb3VzZUNsdWJob3VzZQ=='>Mickey Mouse Clubhouse</a></em> Daisy shakes her butt at the camera while preforming her song in "Mickey Mouse Clubhouse Rocks". In "Shake Your Tail Feathers" she, along with Donald, shake their butts.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TheSixthRanger' title='/pmwiki/pmwiki.php/Main/TheSixthRanger' data-format='VGhlU2l4dGhSYW5nZXI='>The Sixth Ranger</a>: Of Disney's Sensational Six.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TheSmartGuy' title='/pmwiki/pmwiki.php/Main/TheSmartGuy' data-format='VGhlU21hcnRHdXk='>The Smart Guy</a>: She is usually very intelligent when compared to the rest of the cast, barring the odd exception such as <em>Legend of the Three Caballeros</em>.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/SpeciesSurname' title='/pmwiki/pmwiki.php/Main/SpeciesSurname' data-format='U3BlY2llc1N1cm5hbWU='>Species Surname</a>: She is a duck with the surname "Duck".</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TertiarySexualCharacteristics' title='/pmwiki/pmwiki.php/Main/TertiarySexualCharacteristics' data-format='VGVydGlhcnlTZXh1YWxDaGFyYWN0ZXJpc3RpY3M='>Tertiary Sexual Characteristics</a>: She is a more feminine version of Donald, though some redesigns like her <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' title='/pmwiki/pmwiki.php/WesternAnimation/QuackPack' data-format='V2VzdGVybkFuaW1hdGlvbi9RdWFja1BhY2s='>Quack Pack</a></em> incarnation attempt to differentiate her more.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TomboyishPonytail' title='/pmwiki/pmwiki.php/Main/TomboyishPonytail' data-format='VG9tYm95aXNoUG9ueXRhaWw='>Tomboyish Ponytail</a>: She wears a ponytail in <em>House of Mouse</em> and the preschool shows. While she's <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GirlyGirlWithATomboyStreak' title='/pmwiki/pmwiki.php/Main/GirlyGirlWithATomboyStreak' data-format='W1tHaXJseUdpcmxXaXRoQVRvbWJveVN0cmVhayBub3QgZXhhY3RseSBhIHRvbWJveV1d'>not exactly a tomboy</a>, she's still a <a class='twikilink' href='/pmwiki/pmwiki.php/Main/HotBlooded' title='/pmwiki/pmwiki.php/Main/HotBlooded' data-format='SG90Qmxvb2RlZA=='>Hot-Blooded</a> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GenkiGirl' title='/pmwiki/pmwiki.php/Main/GenkiGirl' data-format='R2Vua2lHaXJs'>Genki Girl</a> in contrast with <a class='twikilink' href='/pmwiki/pmwiki.php/Main/GirlyGirl' title='/pmwiki/pmwiki.php/Main/GirlyGirl' data-format='W1tHaXJseUdpcmwgTWlubmllXV0='>Minnie</a>.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/TuftOfHeadFur' title='/pmwiki/pmwiki.php/Main/TuftOfHeadFur' data-format='VHVmdE9mSGVhZEZ1cg=='>Tuft of Head Fur</a>: In some appearances, she has a tuft of feathers in replacement for hair. <em><a class='twikilink' href='/pmwiki/pmwiki.php/WesternAnimation/Fantasia2000' title='/pmwiki/pmwiki.php/WesternAnimation/Fantasia2000' data-format='V2VzdGVybkFuaW1hdGlvbi9GYW50YXNpYTIwMDA='>Fantasia 2000</a></em> is one such example.</li><li> <a class='twikilink' href='/pmwiki/pmwiki.php/Main/VocalEvolution' title='/pmwiki/pmwiki.php/Main/VocalEvolution' data-format='Vm9jYWxFdm9sdXRpb24='>Vocal Evolution</a>: She started out sounding almost exactly like Donald. In her earliest appearances, she even had the same voice actor as him.</li></ul><hr data-format='&#8212;&#8212;' /></p></div>
+
+
+
+        
+
+
+        <div class="section-links" itemscope itemtype="http://schema.org/SiteNavigationElement">
+
+    
+    <div class="titles">
+        <div><h3 class="text-center text-uppercase">Previous</h3></div>
+        <div><h3 class="text-center text-uppercase">Index</h3></div>
+        <div><h3 class="text-center text-uppercase">Next</h3></div>
+    </div>
+
+
+    <div class="links">
+                    
+                <ul>
+                    <li>
+                                                    <a href="/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck">Donald Duck</a>
+                                            </li>
+                    <li>
+                        <a href="/pmwiki/pmwiki.php/Franchise/MickeyMouse">Franchise/Mickey Mouse</a>
+                    </li>
+                    <li>
+                         
+                            <a href="/pmwiki/pmwiki.php/WesternAnimation/OswaldTheLuckyRabbit">Oswald the Lucky Rabbit</a> 
+                                            </li>
+                </ul>
+
+            
+                <ul>
+                    <li>
+                                                    <a href="/pmwiki/pmwiki.php/WesternAnimation/ChipAndDale">Chip 'n Dale</a>
+                                            </li>
+                    <li>
+                        <a href="/pmwiki/pmwiki.php/Main/The40s">The '40s</a>
+                    </li>
+                    <li>
+                         
+                            <a href="/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck">Donald Duck</a> 
+                                            </li>
+                </ul>
+
+            
+                <ul>
+                    <li>
+                                                    <a href="/pmwiki/pmwiki.php/Characters/BobsBurgersLouiseBelcher">Bob's Burgers - Louise Belcher</a>
+                                            </li>
+                    <li>
+                        <a href="/pmwiki/pmwiki.php/CharacterSpecificPages/WesternAnimation">CharacterSpecificPages/Western Animation</a>
+                    </li>
+                    <li>
+                         
+                            <a href="/pmwiki/pmwiki.php/WesternAnimation/DonaldDuck">Donald Duck</a> 
+                                            </li>
+                </ul>
+
+                    
+        
+            </div>
+</div>
+
+
+
+<script>
+    if( document.getElementById('user-prefs').classList.contains('folders-open') ){
+        console.log('open all folders');
+        var elements = document.querySelectorAll('.folderlabel, .toggle-all-folders-button');
+        elements.forEach((element) => {
+          element.classList.add('is-open');
+        });
+    }
+</script>
+
+
+<script>
+// correct incorrect URL capitalization on article pages
+if(tvtropes_config.universal_page_type == 'Article'){
+    // Extract the groupname and title from the URL
+    var url = window.location.href;
+    var hash = window.location.hash; // Preserve the hash/fragment
+    
+    var url_parts = url.split('#')[0].split('/'); // Remove hash before splitting
+    var title = url_parts[url_parts.length - 1];
+    var groupname = url_parts[url_parts.length - 2];
+
+    // Correct groupname and title from PHP (also works on new/non-existing pages)
+    var correct_groupname = 'WesternAnimation';
+    var correct_title = 'DaisyDuck';
+
+    // Check if they are different (case-sensitive comparison)
+    if (groupname !== correct_groupname || title !== correct_title) {
+        // Construct the corrected URL
+        var correctedUrl = url_parts.slice(0, -2).join('/') + '/' + correct_groupname + '/' + correct_title;
+        
+        // Add the hash back if it exists
+        if (hash) {
+            correctedUrl += hash;
+        }
+
+        // Update the browser URL without reloading the page
+        window.history.replaceState(null, '', correctedUrl);
+    }
+}
+
+function insert_ad(adCount, paragraph, adName, folder = 0, logged_in){
+
+        var ad_count = adCount < 10 ? "0"+adCount : adCount;
+        var inside_folder = folder ? "1" : "0";
+        var screen_width = document.body.clientWidth;
+        var resolution = (screen_width >= 769 && screen_width <= 993) ? "769_993" : screen_width;
+
+        // Create element for ad unit
+        var adUnit = document.createElement('div');
+        adUnit.setAttribute("class", `htlad-${adName} ${adName}`);
+        adUnit.setAttribute("id", `${adName}_${adCount}`);
+        adUnit.setAttribute("data-targeting", `{"slot_number": "${ad_count}", "in_folder": "${inside_folder}", "resolution": "${resolution}"}`);
+
+        // create element for subscribe link
+        var subscribeWrapper = document.createElement('div');
+        subscribeWrapper.setAttribute("class", "ad-caption-subscribe-wrapper");
+        var subscribeLink = document.createElement('a');
+        subscribeLink.setAttribute("href", "/pmwiki/ad-free-subscribe.php");
+        subscribeLink.setAttribute("class", "ad-caption-subscribe");
+
+        // only include this for non-users
+        if(logged_in == false) {
+            subscribeLink.innerHTML = `<span class="ad-caption-text">Tired of seeing ads? </span><span class="ad-caption-link">Subscribe!</span>`;
+        }
+
+        // Add Advertisement label
+        var adLabel = document.createElement("span");
+        adLabel.innerHTML = "Advertisement:"
+        adLabel.setAttribute("class","ad-caption");
+
+        var adWrapper = document.createElement("div");
+        adWrapper.setAttribute("class","tvtropes-ad-unit mobile-fad square_fad mobile_unit_scroll");
+        adWrapper.setAttribute("id","mobile_"+adCount);
+
+        // Merge all pieces
+        adWrapper.appendChild(adLabel);
+        adWrapper.appendChild(adUnit);
+        adWrapper.appendChild(subscribeWrapper);
+        subscribeWrapper.appendChild(subscribeLink);
+
+        // Insert adWrapper right after the paragraph
+        paragraph.parentNode.insertBefore(adWrapper, paragraph.nextSibling);
+
+        // Insert subscribeWrapper right after adWrapper (as its sibling)
+        paragraph.parentNode.insertBefore(subscribeWrapper, adWrapper.nextSibling);
+
+        // for getting correct ad count even when ones are deleted
+        globalAdInsertionCount++;
+}
+
+function insert_ads_in_content(folder = 0, totalAdsCount = 0, pHeight = 0) {
+
+    if(folder) var node = folder.firstElementChild; // Get the first traversable element of the folder
+    else var node = document.getElementById("main-article").firstElementChild;
+
+    var pCount = 0;
+    var adCount = totalAdsCount + 1;
+    var nodeCount = 0;
+    var nodeLevel = 0;
+    var x = 0;
+
+    //loop through elements of content
+    while(x<300) {
+        x++; nodeCount++;
+
+        //traverse to the next element (if exists)
+        if(nodeCount>1) {
+            if(!node.nextElementSibling) {
+                console.log('adparser: no next element');
+
+                if(nodeLevel>0) {
+                    nodeLevel--;
+                    node = node.parentElement;
+                    console.log('adparser: we were down a level, go back up ('+nodeLevel+')');
+                    continue;
+                }
+                else {
+                    break; 
+                }
+            }
+
+            node = node.nextElementSibling;
+        }
+
+
+        //skip inserted ads or empty nodes
+        if(!node || node==="null" || typeof node !== "object") continue;
+        if(!node.offsetHeight || node.offsetHeight==0) continue;
+        if(node.className && node.className.includes('tvtropes-ad-unit')) continue;
+
+        //skip if image block that has a caption after it (NEW: ALWAYS SKIP THE IMAGE BLOCK)
+        if(node.className && node.className.includes('quoteright')) {
+            // if(node.nextElementSibling && node.nextElementSibling.className && node.nextElementSibling.className.includes('acaptionright')) {
+                pHeight += node.offsetHeight;
+                continue;
+            // }
+        } 
+
+        //if very large element, loop through elements inside
+        if(node.offsetHeight>700 && node.firstElementChild) {
+            nodeLevel++;
+            console.log('adparser: traverse through large element='+node.nodeName+', height='+node.offsetHeight+' level='+nodeLevel);
+            node = node.firstElementChild;
+            nodeCount = 0;
+            continue;
+        }
+
+        // Skip if after a folder label or if the current node is a folder label itself
+        if ((node.previousElementSibling && node.previousElementSibling.className && node.previousElementSibling.className.includes("folderlabel")) || (node.className && node.className.includes("folderlabel"))) {
+            console.log('adparser: skipping ad insertion related to folder label');
+            if (!node.className || !node.className.includes("folderlabel")) { // If it's not the folder label itself, skip the insertion
+                continue;
+            } else {
+                pHeight += node.offsetHeight; // If it is the folder label, just add its height to pHeight and continue
+                continue;
+            }
+        }
+
+        //paragraph counter
+        if(node.nodeName=="P") pCount++;
+
+        //add height of node to counter
+        pHeight += node.offsetHeight;
+
+        //add margin of node to counter if available
+        try {
+            var nodeStyle = getComputedStyle(node);
+            if(nodeStyle.marginTop && parseInt(nodeStyle.marginTop)>0) pHeight+=parseInt(nodeStyle.marginTop);
+            if(nodeStyle.marginBottom && parseInt(nodeStyle.marginBottom)>0) pHeight+=parseInt(nodeStyle.marginBottom);
+            //console.log(nodeStyle.marginTop+','+nodeStyle.marginBottom);
+        } catch(e) { }
+
+        //debug logging
+        console.log('adparser: name='+node.nodeName+', height='+node.offsetHeight+' =>'+pHeight);
+        //console.log(node.className);
+
+        // check if user is logged in
+        var logged_in = 0;
+
+        // Calculate the required height based on the user's logged-in status or ad count
+        var requiredHeight           = globalAdInsertionCount > 15 ? 1500 : 1100;
+        if(logged_in) requiredHeight = 2250;
+
+        // only inserts an ad if the total height and paragraph count conditions are met
+        if ((adCount === 1 && pCount >= 1 && pHeight >= 400) || pHeight >= requiredHeight) {
+            // Check existing ad positions and compare with the item about to be inserted after
+            var ads = document.querySelectorAll('.tvtropes-ad-unit');
+            var nodeBottomPosition = node.getBoundingClientRect().bottom + window.scrollY; // Get bottom position of current node
+            var canInsertAd = true; // Flag to track if we can insert an ad
+
+            ads.forEach(function (ad) {
+                var adTop = ad.getBoundingClientRect().top + window.scrollY;
+                var adBottom = ad.getBoundingClientRect().bottom + window.scrollY;
+
+                // Ensure the new ad is at least requiredHeight away from any existing ads
+                if (Math.abs(nodeBottomPosition - adTop) < requiredHeight || Math.abs(nodeBottomPosition - adBottom) < requiredHeight) {
+                    canInsertAd = false;
+                    console.log('adparser: cannot insert ad, not enough space between ads.');
+                }
+            });
+            // If we can't insert an ad, skip to the next node
+            if(!canInsertAd) continue;
+
+            // after 50 ads, stop inserting. Or after 20 ads if the user is logged in
+            if ((adCount > 50 || (adCount > 20 && logged_in))) {
+                break;
+            }
+
+            console.log('adparser: insert ad '+adCount);
+            insert_ad(adCount, node, "tvtropes_m_incontent_dynamic", folder, logged_in);
+            adCount++;
+            pHeight = 0;
+            pCount = 0;
+        }
+    }
+
+    //insert one at end if room
+    var maxpHeight = 1100; if(logged_in) maxpHeight=1500;
+    if(pHeight>=maxpHeight && folder==0) {
+        console.log('adparser: insert ad');
+
+        insert_ad(adCount, document.getElementById("main-article").lastElementChild, "tvtropes_m_incontent_dynamic", logged_in);
+    }
+
+    // delete ads after the 8th one to reduce load times
+    BCLighthouseTag.cmd.push(function() {
+        googletag.cmd.push(function() {
+            googletag.pubads().addEventListener('slotRequested', function(event) {
+                const slot = event.slot;
+                const slotName = slot.getAdUnitPath().split('/').pop() || slot.getAdUnitPath();
+
+                if(slotName === 'tvtropes_m_incontent_dynamic') {
+                    const slotNumber = parseInt(slot.getTargeting('slot_number')[0]);
+                    console.log(slotName+' = '+slotNumber);
+
+                    // Determine the ad slot that needs to be deleted.
+                    const adNumberToDelete = slotNumber - 8;
+
+                    if(adNumberToDelete > 0) {
+                        const adToDelete = document.getElementById(`mobile_${adNumberToDelete}`);
+                        if(adToDelete) {
+                            var adHeight = window.pageYOffset + adToDelete.getBoundingClientRect().top;
+                            var windowHeight = window.scrollY;
+
+                            // Check if the ad element exists and is above the current viewport (above the fold).
+                            if (adHeight < windowHeight) {
+                                console.log('ad delete = '+adNumberToDelete);
+                                adToDelete.remove(); 
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+    // return pHeight 
+    return pHeight;
+}
+
+if(1 && (document.body.clientWidth && document.body.clientWidth<=993) ) {
+    insert_ads_in_content();
+}
+</script>
+
+
+
+                
+
+                
+            </article>
+
+                
+                        <div id="main-content-sidebar"><div class="sidebar-item display-options">
+  <ul class="sidebar display-toggles">
+    <li>Show Spoilers <div id="sidebar-toggle-showspoilers" class="display-toggle show-spoilers"></div></li>
+    <li>Night Vision <div id="sidebar-toggle-nightvision" class="display-toggle night-vision"></div></li>
+    <li>Sticky Header <div id="sidebar-toggle-stickyheader" class="display-toggle sticky-header"></div></li>
+    <li>Wide Load <div id="sidebar-toggle-wideload" class="display-toggle wide-load"></div></li>
+  </ul>
+  <script>updateDesktopPrefs();</script>
+</div>
+
+        <div class="sidebar-item quick-links" itemtype="http://schema.org/SiteNavigationElement">
+
+        <p class="sidebar-item-title" data-title="Important Links">Important Links</p>
+
+        <div class="padded">
+            <a href="/pmwiki/query.php?type=att">Ask The Tropers</a>
+            <a href="/pmwiki/query.php?type=tf">Trope Finder</a>
+            <a href="/pmwiki/query.php?type=ykts">Media Finder</a>
+            <a href="/pmwiki/tlp_activity.php">Trope Launch Pad</a>
+            <a href="/pmwiki/query.php?type=wl">Tech Wishlist</a></li>
+            <a href="/pmwiki/browse.php">Browse</a>
+            <a href="/pmwiki/ad-free-subscribe.php">Go Ad Free!</a>
+            <div class="crucial_browsing_dropdown">
+                <a href="javascript:void(0);" onclick="double_dropdown(); return false;" id="crucial_browsing_dropdown"><span class="new_blue">Crucial Browsing</span><i class="fa fa-angle-down"></i></a>
+                <ul id="main_dropdown">
+                    <li class="first_dropdown"><a href="/pmwiki/index_report.php">Indexes</a>
+
+                    <li class="first_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Genre</a>
+                        <ul>
+                            <li><a href='/pmwiki/pmwiki.php/Main/ActionAdventureTropes' title='Main/ActionAdventureTropes'>Action Adventure</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/ComedyTropes' title='Main/ComedyTropes'>Comedy</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/CommercialsTropes' title='Main/CommercialsTropes'>Commercials</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/CrimeAndPunishmentTropes' title='Main/CrimeAndPunishmentTropes'>Crime &amp; Punishment</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/DramaTropes' title='Main/DramaTropes'>Drama</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/HorrorTropes' title='Main/HorrorTropes'>Horror</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/LoveTropes' title='Main/LoveTropes'>Love</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/NewsTropes' title='Main/NewsTropes'>News</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/ProfessionalWrestling' title='Main/ProfessionalWrestling'>Professional Wrestling</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/SpeculativeFictionTropes' title='Main/SpeculativeFictionTropes'>Speculative Fiction</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/SportsStoryTropes' title='Main/SportsStoryTropes'>Sports Story</a></li>
+                            <li><a href='/pmwiki/pmwiki.php/Main/WarTropes' title='Main/WarTropes'>War</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="first_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Media</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Media" title="Main/Media">All Media</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/AnimationTropes" title="Main/AnimationTropes">Animation (Western)</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Anime" title="Main/Anime">Anime</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/ComicBookTropes" title="Main/ComicBookTropes">Comic Book</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/FanFic" title="FanFic/FanFics">Fan Fics</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Film" title="Main/Film">Film</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/GameTropes" title="Main/GameTropes">Game</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Literature" title="Main/Literature">Literature</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/MusicAndSoundEffects" title="Main/MusicAndSoundEffects">Music And Sound Effects</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/NewMediaTropes" title="Main/NewMediaTropes">New Media</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/PrintMediaTropes" title="Main/PrintMediaTropes">Print Media</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Radio" title="Main/Radio">Radio</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/SequentialArt" title="Main/SequentialArt">Sequential Art</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/TabletopGames" title="Main/TabletopGames">Tabletop Games</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/MediaNotes/Television" title="MediaNotes/Television">Television</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Theater" title="Main/Theater">Theater</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/VideogameTropes" title="Main/VideogameTropes">Videogame</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Webcomics" title="Main/Webcomics">Webcomics</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="first_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Narrative</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Main/UniversalTropes" title="Main/UniversalTropes">Universal</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/AppliedPhlebotinum" title="Main/AppliedPhlebotinum">Applied Phlebotinum</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/CharacterizationTropes" title="Main/CharacterizationTropes">Characterization</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Characters" title="Main/Characters">Characters</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/CharactersAsDevice" title="Main/CharactersAsDevice">Characters As Device</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Dialogue" title="Main/Dialogue">Dialogue</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Motifs" title="Main/Motifs">Motifs</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/NarrativeDevices" title="Main/NarrativeDevices">Narrative Devices</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Paratext" title="Main/Paratext">Paratext</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Plots" title="Main/Plots">Plots</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Settings" title="Main/Settings">Settings</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Spectacle" title="Main/Spectacle">Spectacle</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="first_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Other Categories</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Main/BritishTellyTropes" title="Main/BritishTellyTropes">British Telly</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/TheContributors" title="Main/TheContributors">The Contributors</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/CreatorSpeak" title="Main/CreatorSpeak">Creator Speak</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Creators" title="Main/Creators">Creators</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/DerivativeWorks" title="Main/DerivativeWorks">Derivative Works</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/LanguageTropes" title="Main/LanguageTropes">Language</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/LawsAndFormulas" title="Main/LawsAndFormulas">Laws And Formulas</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/ShowBusiness" title="Main/ShowBusiness">Show Business</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/SplitPersonalityTropes" title="Main/SplitPersonalityTropes">Split Personality</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/StockRoom" title="Main/StockRoom">Stock Room</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/TropeTropes" title="Main/TropeTropes">Trope</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Tropes" title="Main/Tropes">Tropes</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/TruthAndLies" title="Main/TruthAndLies">Truth And Lies</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/TruthInTelevision" title="Main/TruthInTelevision">Truth In Television</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="first_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Topical Tropes</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Main/BetrayalTropes" title="Main/BetrayalTropes">Betrayal</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/CensorshipTropes" title="Main/CensorshipTropes">Censorship</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/CombatTropes" title="Main/CombatTropes">Combat</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/DeathTropes" title="Main/DeathTropes">Death</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/FamilyTropes" title="Main/FamilyTropes">Family</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/FateAndProphecyTropes" title="Main/FateAndProphecyTropes">Fate And Prophecy</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/FoodTropes" title="Main/FoodTropes">Food</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/HolidayTropes" title="Main/HolidayTropes">Holiday</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/MemoryTropes" title="Main/MemoryTropes">Memory</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/MoneyTropes" title="Main/MoneyTropes">Money</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/MoralityTropes" title="Main/MoralityTropes">Morality</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/PoliticsTropes" title="Main/PoliticsTropes">Politics</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/ReligionTropes" title="Main/ReligionTropes">Religion</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/SchoolTropes" title="Main/SchoolTropes">School</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resources_dropdown">
+                <a href="javascript:void(0);" onclick="second_double_dropdown(); return false;" id="resources_dropdown"><span class="new_blue blue">Resources</span><i class="fa fa-angle-down"></i></a>
+
+                <ul id="second_main_dropdown" class="padded font-s" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                                        <li class="second_dropdown"><a href="#test" data-click-toggle="active">Tools</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/IttyBittyWikiTools">Wiki Tools</a></li>
+                            <li><a href="/pmwiki/cutlist.php" data-modal-target="login" rel="nofollow">Cut List</a></li>
+                            <li><a href="/pmwiki/image-fixer.php" data-modal-target="login" rel="nofollow">Image Fixer</a></li>
+                            <li><a href="/pmwiki/changes.php">New Edits</a></li>
+                            <li><a href="/pmwiki/articles_new.php">New Articles</a></li>
+                            <li><a href="/pmwiki/recent_edit_reasons.php">Edit Reasons</a></li>
+                            <li><a href="/pmwiki/isolated_pages.php">Isolated Pages</a></li> 
+                            <li><a href="/pmwiki/launches.php" data-modal-target="login" rel="nofollow">Launches</a></li>
+                            <li><a href="/pmwiki/img_list.php" data-modal-target="login" rel="nofollow">Images List</a></li>
+                            <li><a href="/pmwiki/recent_videos.php">Recent Videos</a></li>
+                            <li><a href="/pmwiki/crown_activity.php">Crowner Activity</a></li>
+                            <li><a href="/pmwiki/no_types.php">Un-typed Pages</a></li>
+                            <li><a href="/pmwiki/page_type_audit.php">Recent Page Type Changes</a></li>
+                        </ul>
+                    </li>
+                    <li class="second_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Templates</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Main/TropeEntryTemplate">Trope Entry</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/ProgramEntryTemplate">Works</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/CharacterSheetTemplate">Character Sheet</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/PlayingWithWikiTemplate">Playing With</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/FanficRecs/TemplatePageForNewFandomRecommendations">Fandom</a></li>
+                        </ul>
+                    </li>
+                    <li class="second_dropdown"><a href="javascript:void(0);" data-click-toggle="active">Tips</a>
+                        <ul>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/CreatingNewRedirects">Creating New Redirects</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/Crosswicking">Cross Wicking</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/TipsForEditing">Tips for Editing</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/TextFormattingRules">Text Formatting Rules</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/TVTropesGlossary">Glossary</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/EditReasonsAndWhyYouShouldUseThem">Edit Reasons</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/HandlingSpoilers">Handling Spoilers</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Administrivia/WordCruft">Word Cruft</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/Administrivia">Administrivia</a></li>
+                            <li><a href="/pmwiki/pmwiki.php/Main/FAQ">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="second_dropdown"><a href="/pmwiki/changelog.php">Changelog</a></li>
+                    <li class="second_dropdown"><a href="/pmwiki/query.php?type=bug">Report Bug</a></li>
+                    <li class="second_dropdown"><a href="/pmwiki/conversations.php?topic=renames">Trope Repair Shop</a></li>
+                    <li class="second_dropdown"><a href="/pmwiki/conversations.php?topic=images">Image Pickin'</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="asteri-sidebar" style="display:none">
+            <p style="margin-top: 20px;" class="sidebar-item-title" data-title="Advertisement">Advertisement:</p>
+            <div id="asteri_cont"></div>
+        </div>
+        <script>
+            //asteri enabled
+            if((tvtropes_config.asteri_stream_enabled || tvtropes_config.get_asteri_stream == 'live')) {
+                //aster stream currently live and not a logged-in troper
+                if(!tvtropes_config.is_logged_in && cookies.read('asteri_event_active') != '') {
+                    document.getElementById('asteri-sidebar').style.display="";
+                }
+            }
+        </script>
+
+    </div>
+
+        
+            
+
+    
+        
+            <script>
+    if(!is_mobile()) {
+
+        //don't insert if content is too small on page
+        var tropes_insert_side_ad=true;
+        if(document.getElementById("main-article") && document.getElementById("main-article").clientHeight) {
+            var sidebar_height=document.getElementById("main-article").clientHeight;
+            if(sidebar_height>0 && sidebar_height<500) {
+                tropes_insert_side_ad=false;
+                console.log('ad parser: content too small for sidebar ad');
+            }
+        }
+
+        if(tropes_insert_side_ad) {
+
+       document.write(`
+        <div id="stick-cont"  class="sidebar-item sb-fad-unit">
+            <p class="sidebar-item-title" data-title="Advertisement">Advertisement:</p>
+            <div id="stick-bar" class="sidebar-section">
+                <div class="square_fad fad-size-300x600 fad-section text-center">
+                    <div class='tvtropes-ad-unit '>
+                      <div id='tvtropes_dt_inview' class='htlad-tvtropes_dt_inview'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-caption-subscribe-sidebar">
+                <a href="/pmwiki/ad-free-subscribe.php" class="ad-caption-subscribe">
+                    <span class="ad-caption-text">Tired of seeing ads? </span><span class="ad-caption-link">Subscribe!</span>
+                </a>
+            </div>
+        </div>
+        `);
+        }
+
+    }
+    </script>
+    
+
+</div>
+        
+    </div>
+
+        <div id="action-bar-bottom" class="action-bar tablet-off">
+        <a href="#top-of-page" class="scroll-to-top dead-button" onclick="scroll_to_top(500);">Top</a>
+    </div>
+    
+</div>    <footer id="main-footer">
+        <div id="main-footer-inner">
+
+
+            <div class="footer-left">
+
+                <a href="/" class="img-link"><img data-src="/img/tvtropes-footer-logo.png" alt="TV Tropes" class="logo_image lazy-image" title="TV Tropes" /></a>
+
+
+                <ul class="social-buttons">
+                   <li><a class="btn fb" target="_blank" href="https://www.facebook.com/tvtropes"><i class="fa fa-facebook"></i></a></li>
+                   <li><a class="btn tw" target="_blank" href="https://www.twitter.com/tvtropes"><i class="fa fa-twitter"></i></a> </li>
+                </ul>
+
+            </div>
+
+            <hr/>
+
+            <ul class="footer-menu" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                <li><h4 class="footer-menu-header">TVTropes</h4></li>
+                <li><a href="/pmwiki/pmwiki.php/Main/Administrivia">About TVTropes</a></li>
+                <li><a href="/pmwiki/pmwiki.php/Administrivia/TheGoalsOfTVTropes">TVTropes Goals</a></li>
+                <li><a href="/pmwiki/pmwiki.php/Administrivia/TheTropingCode">Troping Code</a></li>
+                <li><a href="/pmwiki/pmwiki.php/Administrivia/TVTropesCustoms">TVTropes Customs</a></li>
+                <li><a href="/pmwiki/pmwiki.php/JustForFun/TropesOfLegend">Tropes of Legend</a></li>
+                <li><a href="/pmwiki/ad-free-subscribe.php">Go Ad-Free</a></li>
+                            </ul>
+
+            <hr/>
+
+            <ul class="footer-menu" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                <li><h4 class="footer-menu-header">Community</h4></li>
+                <li><a href="/pmwiki/query.php?type=att">Ask The Tropers</a></li>
+                <li><a href="/pmwiki/tlp_activity.php">Trope Launch Pad</a></li>
+                <li><a href="/pmwiki/query.php?type=tf">Trope Finder</a></li>
+                <li><a href="/pmwiki/query.php?type=ykts">Media Finder</a></li>
+                <li><a href="/pmwiki/query.php?type=wl">Tech Wishlist</a></li>
+                <li><a href="/pmwiki/review_activity.php">Reviews</a></li>
+                <li><a href="/pmwiki/topics.php">Forum</a></li>
+            </ul>
+
+            <hr/>
+
+            <ul class="footer-menu" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                <li><h4 class="footer-menu-header">Tropes HQ</h4></li>
+                <li><a href="/pmwiki/about.php">About Us</a></li>
+                                <li><a href="/pmwiki/contact.php">Contact Us</a></li>
+                <li><a href="/pmwiki/query.php?type=bug">Report Bug</a></li>
+                <li><a href="/pmwiki/changelog.php">Changelog</a></li>
+                <li><a href="/pmwiki/dmca.php">DMCA Notice</a></li>
+                <li><a href="/pmwiki/privacypolicy.php">Privacy Policy</a></li>
+                <li><a href="/pmwiki/termsofservice.php">Terms Of Service</a></li>
+
+            </ul>
+
+        </div>
+
+        <div id="desktop-on-mobile-toggle" class="text-center gutter-top gutter-bottom tablet-on">
+          <a href="/pmwiki/switchDeviceCss.php?mobileVersion=1" rel="nofollow">Switch to <span class="txt-desktop">Desktop</span><span class="txt-mobile">Mobile</span> Version</a>
+        </div>
+
+        <div class="legal">
+            <p>TVTropes is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. <br>Permissions beyond the scope of this license may be available from <a xmlns:cc="http://creativecommons.org/ns#" href="mailto:thestaff@tvtropes.org" rel="cc:morePermissions"> thestaff@tvtropes.org</a>.</p>
+            <br>
+            <div class="privacy_wrapper">
+            </div>
+        </div>
+    </footer>
+
+    <style>
+      div.fc-ccpa-root {
+        position: absolute !important;
+        bottom: 93px !important;
+        margin: auto !important;
+        width: 100% !important;
+        z-index: 9999 !important;
+        overflow: hidden !important;
+      }
+      .fc-ccpa-root .fc-dns-dialog .fc-dns-link p{
+        outline: none !important;
+        text-decoration: underline !important;
+        font-size: .7em !important;
+        font-family: sans-serif !important;
+      }
+      .fc-ccpa-root .fc-dns-dialog .fc-dns-link .fc-button-background {
+        background: none !important;
+      }
+    </style>
+
+        <div id="_pm_videoViewer" class="full-screen">
+
+  <a href="#close" class="close" id="_pm_videoViewer-close"></a>
+
+  <div class="_pmvv-body">
+
+    <div class="_pmvv-vidbox">
+
+        
+    </div>
+
+  </div>
+
+  
+</div>
+
+        
+        <script type="text/javascript">
+
+        var donation = "";
+        var live_ads = "1";
+        var img_domain = "https://static.tvtropes.org";
+        var elem = document.createElement('script');
+        elem.async = true;
+
+
+        // if page type is article or homepage load bundle_nojquery. otherwise load regular bundle.js
+        if(tvtropes_config.universal_page_type == "Article" || tvtropes_config.universal_page_type == "HomePage") {
+            elem.src = 'https://assets.tvtropes.org/design/assets/bundle_nojquery.js?rev=837eba629aae42d6ced50e00a6cd91a1c3f1621c';
+        } else {
+            elem.src = 'https://assets.tvtropes.org/design/assets/bundle.js?rev=837eba629aae42d6ced50e00a6cd91a1c3f1621c';
+        }
+
+        elem.onload = function() {
+                                 }
+        document.getElementsByTagName('head')[0].appendChild(elem);
+    </script>
+
+
+    
+    
+
+    <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a304522afd6654e4',t:'MTc4NzU5NTEwMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
